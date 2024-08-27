@@ -1,0 +1,246 @@
+Index: src/main/java/net/engineeringdigest/journalApp/Entity/journalEntry.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/net/engineeringdigest/journalApp/Entity/journalEntry.java b/src/main/java/net/engineeringdigest/journalApp/Entity/journalEntry.java
+--- a/src/main/java/net/engineeringdigest/journalApp/Entity/journalEntry.java	
++++ b/src/main/java/net/engineeringdigest/journalApp/Entity/journalEntry.java	(date 1724738291307)
+@@ -1,12 +1,31 @@
+ package net.engineeringdigest.journalApp.Entity;
+ 
++import org.springframework.data.annotation.Id;
++import org.springframework.data.mongodb.core.mapping.Document;
++
++import java.util.Collection;
++import java.util.Collections;
++import java.util.Date;
++
++@Document(collection = "journal_Entries")
+ public class journalEntry {
+-    private long id;
++    @Id
++    private String id;
+ 
+     public String getTitle() {
+         return title;
+     }
+ 
++    public Date getDate() {
++        return date;
++    }
++
++    public void setDate(Date date) {
++        this.date = date;
++    }
++
++    private Date date;
++
+     public void setTitle(String title) {
+         this.title = title;
+     }
+@@ -19,11 +38,11 @@
+         this.content = content;
+     }
+ 
+-    public long getId() {
++    public String getId() {
+         return id;
+     }
+ 
+-    public void setId(long id) {
++    public void setId(String id) {
+         this.id = id;
+     }
+ 
+Index: src/main/java/net/engineeringdigest/journalApp/service/JournalEntryService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/net/engineeringdigest/journalApp/service/JournalEntryService.java b/src/main/java/net/engineeringdigest/journalApp/service/JournalEntryService.java
+new file mode 100644
+--- /dev/null	(date 1724737582014)
++++ b/src/main/java/net/engineeringdigest/journalApp/service/JournalEntryService.java	(date 1724737582014)
+@@ -0,0 +1,17 @@
++package net.engineeringdigest.journalApp.service;
++
++import net.engineeringdigest.journalApp.Entity.journalEntry;
++import net.engineeringdigest.journalApp.repository.JournalEntryRepo;
++import org.springframework.beans.factory.annotation.Autowired;
++import org.springframework.stereotype.Component;
++
++@Component
++public class JournalEntryService {
++    @Autowired
++    public JournalEntryRepo journalEntryRepo;
++    public void saveEntry(journalEntry entry) {
++        journalEntryRepo.save(entry);
++    }
++
++    //controller-->service-->repository
++}
+Index: src/main/java/net/engineeringdigest/journalApp/repository/JournalEntryRepo.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/net/engineeringdigest/journalApp/repository/JournalEntryRepo.java b/src/main/java/net/engineeringdigest/journalApp/repository/JournalEntryRepo.java
+new file mode 100644
+--- /dev/null	(date 1724737224221)
++++ b/src/main/java/net/engineeringdigest/journalApp/repository/JournalEntryRepo.java	(date 1724737224221)
+@@ -0,0 +1,9 @@
++package net.engineeringdigest.journalApp.repository;
++
++import net.engineeringdigest.journalApp.Entity.journalEntry;
++import org.springframework.boot.autoconfigure.data.mongo.MongoRepositoriesAutoConfiguration;
++import org.springframework.data.mongodb.repository.MongoRepository;
++
++public interface JournalEntryRepo extends MongoRepository<journalEntry, String> {
++
++}
+Index: src/main/java/net/engineeringdigest/journalApp/controller/JournalEntryController_v2.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/net/engineeringdigest/journalApp/controller/JournalEntryController_v2.java b/src/main/java/net/engineeringdigest/journalApp/controller/JournalEntryController_v2.java
+new file mode 100644
+--- /dev/null	(date 1724737683071)
++++ b/src/main/java/net/engineeringdigest/journalApp/controller/JournalEntryController_v2.java	(date 1724737683071)
+@@ -0,0 +1,39 @@
++package net.engineeringdigest.journalApp.controller;
++
++import net.engineeringdigest.journalApp.Entity.journalEntry;
++import net.engineeringdigest.journalApp.service.JournalEntryService;
++import org.springframework.beans.factory.annotation.Autowired;
++import org.springframework.web.bind.annotation.*;
++
++import java.util.ArrayList;
++import java.util.HashMap;
++
++@RestController
++@RequestMapping("/journal")
++public class JournalEntryController_v2 {
++    @Autowired
++    private JournalEntryService journalEntryService;
++
++    @GetMapping
++    public ArrayList<journalEntry> getAll() {
++        return null;
++    }
++    @PostMapping
++    public boolean createEntry(@RequestBody journalEntry entry) {
++        journalEntryService.saveEntry(entry);
++    return true;
++
++    }
++    @GetMapping("id/{myId} ")
++    public journalEntry getJournalEntryById(@PathVariable Long myId) {
++        return null;
++    }
++    @DeleteMapping("id/{myId}")
++    public journalEntry deleteEntryById(@PathVariable Long myId) {
++        return null;
++    }
++    @PutMapping("id/{id}")
++    public journalEntry updateEntryById(@PathVariable  Long id, @RequestBody journalEntry entry) {
++        return null;
++    }
++}
+Index: src/main/java/net/engineeringdigest/journalApp/controller/JournalEntryController.java
+===================================================================
+diff --git a/src/main/java/net/engineeringdigest/journalApp/controller/JournalEntryController.java b/src/main/java/net/engineeringdigest/journalApp/controller/JournalEntryController.java
+deleted file mode 100644
+--- a/src/main/java/net/engineeringdigest/journalApp/controller/JournalEntryController.java	
++++ /dev/null	
+@@ -1,38 +0,0 @@
+-package net.engineeringdigest.journalApp.controller;
+-
+-import net.engineeringdigest.journalApp.Entity.journalEntry;
+-import org.springframework.web.bind.annotation.*;
+-
+-import java.util.ArrayList;
+-import java.util.HashMap;
+-
+-@RestController
+-@RequestMapping("/journal")
+-public class JournalEntryController {
+-    private HashMap<Long, journalEntry> journalEntries = new HashMap<>();
+-
+-    @GetMapping
+-    public ArrayList<journalEntry> getAll() {
+-        return new ArrayList<>(journalEntries.values());
+-
+-    }
+-    @PostMapping
+-    public boolean createEntry(@RequestBody journalEntry entry) {
+-    journalEntries.put(entry.getId(), entry);
+-    return true;
+-
+-    }
+-    @GetMapping("/id/{myId} ")
+-    public journalEntry getJournalEntryById(@PathVariable long myId) {
+-        return journalEntries.get(myId);
+-    }
+-    @DeleteMapping("id/{myId")
+-    public journalEntry deleteEntryById(@PathVariable long myId) {
+-        return journalEntries.remove(myId);
+-
+-    }
+-    @PutMapping
+-    public journalEntry updateEntryById(@PathVariable  Long id) {
+-        return journalEntries.put(entry.getId(), entry);
+-    }
+-}
+Index: src/main/resources/application.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>ISO-8859-1
+===================================================================
+diff --git a/src/main/resources/application.properties b/src/main/resources/application.properties
+--- a/src/main/resources/application.properties	
++++ b/src/main/resources/application.properties	(date 1724736041087)
+@@ -1,0 +1,5 @@
++spring.data.mongodb.host=localhost
++spring.data.mongodb.port=27017
++spring.data.mongodb.database=journaldb
++#spring.data.mongodb.username=
++#spring.data.mongodb.password=
+Index: .idea/inspectionProfiles/Project_Default.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/inspectionProfiles/Project_Default.xml b/.idea/inspectionProfiles/Project_Default.xml
+new file mode 100644
+--- /dev/null	(date 1724737290119)
++++ b/.idea/inspectionProfiles/Project_Default.xml	(date 1724737290119)
+@@ -0,0 +1,6 @@
++<component name="InspectionProjectProfileManager">
++  <profile version="1.0">
++    <option name="myName" value="Project Default" />
++    <inspection_tool class="SpringJavaInjectionPointsAutowiringInspection" enabled="false" level="ERROR" enabled_by_default="false" />
++  </profile>
++</component>
+\ No newline at end of file
+Index: pom.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/pom.xml b/pom.xml
+--- a/pom.xml	
++++ b/pom.xml	(date 1724736663421)
+@@ -26,6 +26,11 @@
+ 			<artifactId>spring-boot-starter-test</artifactId>
+ 			<scope>test</scope>
+ 		</dependency>
++		<dependency>
++			<groupId>org.springframework.boot</groupId>
++			<artifactId>spring-boot-starter-data-mongodb</artifactId>
++			<version>2.7.16</version>
++		</dependency>
+ 	</dependencies>
+ 
+ 	<build>
