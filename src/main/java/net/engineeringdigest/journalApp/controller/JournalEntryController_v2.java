@@ -49,10 +49,10 @@ public class JournalEntryController_v2 {
         return journalEntryService.getEntryById(myId).orElse(null);
     }
 
-    @DeleteMapping("id/{myId}")
-    public boolean deleteEntryById(@PathVariable ObjectId myId) {
-        journalEntryService.deleteEntryById(myId);
-        return true;
+    @DeleteMapping("id/{username}/{myId}")
+    public ResponseEntity<?> deleteEntryById(@PathVariable ObjectId myId,@PathVariable String username) {
+        journalEntryService.deleteEntryById(myId,username);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 //    @PutMapping("id/{id}")
 //    public journalEntry updateEntryById(@PathVariable  ObjectId id, @RequestBody journalEntry entry) {
