@@ -1,14 +1,12 @@
 package net.engineeringdigest.journalApp.service;
 
+import net.engineeringdigest.journalApp.Entity.User;
 import net.engineeringdigest.journalApp.Entity.journalEntry;
 import net.engineeringdigest.journalApp.repository.JournalEntryRepo;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,9 +14,17 @@ import java.util.Optional;
 public class JournalEntryService {
     @Autowired
     public JournalEntryRepo journalEntryRepo;
+
+    @Autowired
+    private userEntryService userEntryService;
+
     //postmap
-    public void saveEntry(journalEntry entry) {
-        journalEntryRepo.save(entry);
+    public void saveEntry(journalEntry entry,String userName) {
+        User user=userEntryService.findByUsername(userName);
+        journalEntry saved=journalEntryRepo.save(entry);
+        user.getJournalEntries().add(saved);
+        userEntryService.saveEntry(user);
+
     }
     //getmap
     public List<journalEntry> getALl(){
