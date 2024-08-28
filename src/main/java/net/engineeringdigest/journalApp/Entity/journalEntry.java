@@ -2,6 +2,7 @@ package net.engineeringdigest.journalApp.Entity;
 
 import lombok.Data;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
@@ -16,6 +17,7 @@ public class journalEntry {
     @Id
     private ObjectId id;
     private LocalDateTime date;
+    @NonNull
     private String title;
     private String content;
 
