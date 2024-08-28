@@ -54,14 +54,17 @@ public class JournalEntryController_v2 {
         journalEntryService.deleteEntryById(myId,username);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-//    @PutMapping("id/{id}")
-//    public journalEntry updateEntryById(@PathVariable  ObjectId id, @RequestBody journalEntry entry) {
-//        journalEntry oldEntry = journalEntryService.getEntryById(id).orElse(null);
-//        if(oldEntry != null) {
-//            oldEntry.setTitle(entry.getTitle() != null && !entry.getTitle().equals("") ? entry.getTitle() : oldEntry.getTitle());
-//            oldEntry.setContent(entry.getContent() != null && !entry.getContent().equals("") ? entry.getContent() : oldEntry.getContent());
-//        }
-//            journalEntryService.saveEntry(oldEntry);
-//            return oldEntry;
-//    }
+
+    @PutMapping("id/{username}/{id}")
+    public ResponseEntity<?> updateEntryById(@PathVariable String username,@PathVariable  ObjectId id, @RequestBody journalEntry entry) {
+        journalEntry oldEntry = journalEntryService.getEntryById(id).orElse(null);
+        if(oldEntry != null) {
+            oldEntry.setTitle(entry.getTitle() != null && !entry.getTitle().equals("") ? entry.getTitle() : oldEntry.getTitle());
+            oldEntry.setContent(entry.getContent() != null && !entry.getContent().equals("") ? entry.getContent() : oldEntry.getContent());
+            journalEntryService.saveEntry(oldEntry);
+            return new ResponseEntity<>(oldEntry,HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(oldEntry,HttpStatus.NOT_FOUND);
+    }
 }
