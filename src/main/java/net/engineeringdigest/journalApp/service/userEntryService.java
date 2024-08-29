@@ -1,13 +1,14 @@
 package net.engineeringdigest.journalApp.service;
 
 import net.engineeringdigest.journalApp.Entity.User;
-import net.engineeringdigest.journalApp.Entity.journalEntry;
-import net.engineeringdigest.journalApp.repository.JournalEntryRepo;
 import net.engineeringdigest.journalApp.repository.userEntryRepo;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,8 +16,15 @@ import java.util.Optional;
 public class userEntryService {
     @Autowired
     public  userEntryRepo userEntryRepo ;
+    private static final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     //postmap
     public  void saveEntry(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRoles(Arrays.asList("User"));
+        userEntryRepo.save(user);
+    }
+    //new save fnc to encrypt pass
+    public  void saveNewUser(User user) {
         userEntryRepo.save(user);
     }
     //getmap
@@ -40,5 +48,8 @@ public class userEntryService {
     public User findByUsername(String username) {
         return userEntryRepo.findByusername(username);
     }
+//    public void  deleteByUserName(String username) {
+//        userEntryRepo.deleteByUserName(username);
+//    }
     //controller-->service-->repository
 }

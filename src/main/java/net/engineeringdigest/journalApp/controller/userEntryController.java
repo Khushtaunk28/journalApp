@@ -5,6 +5,8 @@ import net.engineeringdigest.journalApp.service.userEntryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,26 +16,32 @@ import java.util.List;
 public class userEntryController {
     @Autowired
     private userEntryService UserService;
+    @Autowired
+    private net.engineeringdigest.journalApp.repository.userEntryRepo userEntryRepo;
 
-    @GetMapping
-    public  List<User> getAll() {
-        return UserService.getAll();
-    }
-    @PostMapping
-    public  void createuser(@RequestBody User user) {
-           UserService.saveEntry(user);
+//    @GetMapping
+//    public  List<User> getAll() {
+//        return UserService.getAll();
+//    }
 
-    }
-    @PutMapping("/{userName}")
+    @PutMapping()
     public ResponseEntity<?> updateuser(@RequestBody User user, @PathVariable String userName) {
+        Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+        String username=authentication.getName();
+
         User userIndb=UserService.findByUsername(userName);
-        if(userIndb!=null) {
             userIndb.setUsername(user.getUsername());
             userIndb.setPassword(user.getPassword());
             UserService.saveEntry(userIndb);
-        }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+//    @DeleteMapping()
+//    public ResponseEntity<?> deleteuser(@PathVariable String userName) {
+//        Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+//        String username=authentication.getName();
+//        userEntryRepo.deleteByUserName(authentication.getName());
+//        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//    }
 
 
 
