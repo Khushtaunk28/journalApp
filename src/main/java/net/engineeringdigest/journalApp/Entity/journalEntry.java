@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 @Document(collection = "journal_Entries")
-@Data
+@Data//reduced the complexity of manually declaring getter and setter
 @NoArgsConstructor
 public class journalEntry {
     @Id

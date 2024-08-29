@@ -23,9 +23,11 @@ public class JournalEntryController_v2 {
     @Autowired
     private userEntryService userService;
 
+
     @GetMapping("{userName}")
     public ResponseEntity<?> getAllJournalEntriesOfUser(@PathVariable String userName) {
         User user = userService.findByUsername(userName);
+//        return journalEntryService.getALl();
         List<journalEntry> all = user.getJournalEntries();
         if (all != null && !all.isEmpty())
             return new ResponseEntity<>(all, HttpStatus.OK);
@@ -35,6 +37,7 @@ public class JournalEntryController_v2 {
 
     @PostMapping("{userName}")
     public ResponseEntity<journalEntry> createEntry(@RequestBody journalEntry entry, @PathVariable String userName) {
+        //journalEntryService.saveEntry(entry);
         try {
             journalEntryService.saveEntry(entry, userName);
             return new ResponseEntity<>(entry, HttpStatus.CREATED);

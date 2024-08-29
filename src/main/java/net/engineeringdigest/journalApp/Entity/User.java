@@ -25,7 +25,4 @@ public class User {
     private String password;
     @DBRef//to create relation to jornal ENtry database
     private List<journalEntry> journalEntries=new ArrayList<>();
-
-
-
 }

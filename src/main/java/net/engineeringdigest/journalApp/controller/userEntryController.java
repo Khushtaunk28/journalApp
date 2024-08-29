@@ -28,12 +28,13 @@ public class userEntryController {
     public ResponseEntity<?> updateuser(@RequestBody User user, @PathVariable String userName) {
         User userIndb=UserService.findByUsername(userName);
         if(userIndb!=null) {
-            user.setUsername(userIndb.getUsername());
-            user.setPassword(userIndb.getPassword());
+            userIndb.setUsername(user.getUsername());
+            userIndb.setPassword(user.getPassword());
             UserService.saveEntry(userIndb);
         }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
 
 
 }

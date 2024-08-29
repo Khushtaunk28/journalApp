@@ -32,6 +32,7 @@ public class userEntryService {
 //    public void deleteEntryById(ObjectId id) {
 //          net.engineeringdigest.journalApp.repository.userEntryRepo.deleteById(id);
 //    }
+
     //put
     public User updateEntryById(ObjectId id, User entry) {
         return userEntryRepo.save(entry);

@@ -6,6 +6,7 @@ import net.engineeringdigest.journalApp.repository.JournalEntryRepo;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +20,7 @@ public class JournalEntryService {
     private userEntryService userEntryService;
 
     //postmap
+//    @Transactional//operate as single unit,if anyone of the proess fails ,then rollback
     public void saveEntry(journalEntry entry,String userName) {
         User user=userEntryService.findByUsername(userName);
         journalEntry saved=journalEntryRepo.save(entry);
