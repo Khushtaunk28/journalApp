@@ -23,6 +23,7 @@ public class User {
     private String username;
     @NonNull//to make sure password is not null
     private String password;
+    private List<String> roles;
     @DBRef//to create relation to jornal ENtry database
     private List<journalEntry> journalEntries=new ArrayList<>();
 }
