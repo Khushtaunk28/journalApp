@@ -35,11 +35,11 @@ public class userEntryController {
             UserService.saveEntry(userIndb);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-//    @DeleteMapping()
-//    public ResponseEntity<?> deleteuser(@PathVariable String userName) {
+
+//    @DeleteMapping("/user")
+//    public ResponseEntity<?> deleteuser() {
 //        Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
-//        String username=authentication.getName();
-//        userEntryRepo.deleteByUserName(authentication.getName());
+//        userEntryService.deleteByUserName(authentication.getName());
 //        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 //    }
 

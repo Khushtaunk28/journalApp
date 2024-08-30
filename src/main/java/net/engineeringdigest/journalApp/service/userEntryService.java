@@ -16,11 +16,11 @@ import java.util.Optional;
 public class userEntryService {
     @Autowired
     public  userEntryRepo userEntryRepo ;
-    private static final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    private  final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     //postmap
     public  void saveEntry(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRoles(Arrays.asList("User"));
+        //user.setRoles(Arrays.asList("User"));
         userEntryRepo.save(user);
     }
     //new save fnc to encrypt pass
@@ -48,8 +48,8 @@ public class userEntryService {
     public User findByUsername(String username) {
         return userEntryRepo.findByusername(username);
     }
-//    public void  deleteByUserName(String username) {
-//        userEntryRepo.deleteByUserName(username);
-//    }
+    public  void  deleteByUserName(String username) {
+        userEntryRepo.deleteByusername(username);
+    }
     //controller-->service-->repository
 }
