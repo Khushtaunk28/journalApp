@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,12 +21,18 @@ public class JournalEntryService {
     private userEntryService userEntryService;
 
     //postmap
-//    @Transactional//operate as single unit,if anyone of the proess fails ,then rollback
+   @Transactional//operate as single unit,if anyone of the proess fails ,then rollback
     public void saveEntry(journalEntry entry,String userName) {
-        User user=userEntryService.findByUsername(userName);
-        journalEntry saved=journalEntryRepo.save(entry);
-        user.getJournalEntries().add(saved);
-        userEntryService.saveNewUser(user);
+       try {
+           User user = userEntryService.findByUsername(userName);
+           //journalEntry.setDate(LocalDateTime.now());
+           journalEntry saved = journalEntryRepo.save(entry);
+           user.getJournalEntries().add(saved);
+           userEntryService.saveNewUser(user);
+       }catch (Exception e) {
+           System.out.println(e);
+           throw new RuntimeException("AN error oocured",e);
+       }
 
     }
     public void saveEntry(journalEntry entry) {
@@ -42,11 +49,22 @@ public class JournalEntryService {
         return journalEntryRepo.findById(id);
     }
     //delete
-    public void deleteEntryById(ObjectId id, String username) {
-        User user=userEntryService.findByUsername(username);
-        user.getJournalEntries().removeIf(x->x.getId().equals(id));
-        userEntryService.saveEntry(user);
-        journalEntryRepo.deleteById(id);
+    @Transactional
+    public boolean deleteEntryById(ObjectId id, String username) {
+       boolean removed=false;
+       try {
+           User user = userEntryService.findByUsername(username);
+           removed = user.getJournalEntries().removeIf(x -> x.getId().equals(id));
+           if (removed) {
+               userEntryService.saveNewUser(user);
+               journalEntryRepo.deleteById(id);
+           }
+
+       }catch (Exception e) {
+           System.out.println(e);
+           throw new RuntimeException("AN error oocured while deleting",e);
+       }
+       return removed;
     }
     //put
     public journalEntry updateEntryById(ObjectId id, journalEntry entry) {

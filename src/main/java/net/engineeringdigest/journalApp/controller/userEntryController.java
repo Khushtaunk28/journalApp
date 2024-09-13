@@ -36,12 +36,12 @@ public class userEntryController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-//    @DeleteMapping("/user")
-//    public ResponseEntity<?> deleteuser() {
-//        Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
-//        userEntryService.deleteByUserName(authentication.getName());
-//        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//    }
+    @DeleteMapping("/user")
+    public ResponseEntity<?> deleteuserById() {
+        Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+        UserService.deleteByUserName(authentication.getName());
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 
 
 

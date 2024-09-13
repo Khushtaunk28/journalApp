@@ -20,7 +20,7 @@ public class userEntryService {
     //postmap
     public  void saveEntry(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        //user.setRoles(Arrays.asList("User"));
+        user.setRoles(Arrays.asList("USER"));
         userEntryRepo.save(user);
     }
     //new save fnc to encrypt pass
@@ -50,6 +50,11 @@ public class userEntryService {
     }
     public  void  deleteByUserName(String username) {
         userEntryRepo.deleteByusername(username);
+    }
+    public void saveAdmin(User user) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.setRoles(Arrays.asList("USER", "ADMIN"));
+            userEntryRepo.save(user);
     }
     //controller-->service-->repository
 }
