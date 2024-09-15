@@ -23,7 +23,7 @@ public class userEntryServiceTest  {
     public void testFindByUsername() {
         assertEquals(4,2+2);
         User user = userEntryRepo.findByusername("vipul");
-        assertNotNull(userEntryRepo.findByusername("khush"),"failed for message");
+        assertNotNull(userEntryRepo.findByusername("khush"),"nott for message");
         assertTrue(user.getJournalEntries() != null);
     }
 
