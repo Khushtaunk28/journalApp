@@ -25,7 +25,7 @@ public class userDetailServiceTest {
     }
     @Test
     void loadUserByUsernameTest(){
-        when(userEntryRepo.findByusername(ArgumentMatchers.anyString())).thenReturn(User.builder().username("ram").passwordEncoder("sdfdf"));
+        //when(userEntryRepo.findByusername(ArgumentMatchers.anyString())).thenReturn(User.builder().username("ram").passwordEncoder("sdfdf"));
         UserDetails user=userDetailService.loadUserByUsername("ram");
         Assertions.assertNotNull(user);
     }
