@@ -4,6 +4,8 @@ import net.engineeringdigest.journalApp.Entity.User;
 import net.engineeringdigest.journalApp.Entity.journalEntry;
 import net.engineeringdigest.journalApp.repository.JournalEntryRepo;
 import org.bson.types.ObjectId;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +21,7 @@ public class JournalEntryService {
 
     @Autowired
     private userEntryService userEntryService;
+    private final Logger logger= LoggerFactory.getLogger(JournalEntryService.class);
 
     //postmap
    @Transactional//operate as single unit,if anyone of the proess fails ,then rollback
@@ -30,7 +33,8 @@ public class JournalEntryService {
            user.getJournalEntries().add(saved);
            userEntryService.saveNewUser(user);
        }catch (Exception e) {
-           System.out.println(e);
+           logger.info("using logger for first time");
+           //System.out.println(e);
            throw new RuntimeException("AN error oocured",e);
        }
 
