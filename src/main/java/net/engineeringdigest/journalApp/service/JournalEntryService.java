@@ -21,7 +21,7 @@ public class JournalEntryService {
 
     @Autowired
     private userEntryService userEntryService;
-    private final Logger logger= LoggerFactory.getLogger(JournalEntryService.class);
+   // private final Logger logger= LoggerFactory.getLogger(JournalEntryService.class);
 
     //postmap
    @Transactional//operate as single unit,if anyone of the proess fails ,then rollback
@@ -33,8 +33,8 @@ public class JournalEntryService {
            user.getJournalEntries().add(saved);
            userEntryService.saveNewUser(user);
        }catch (Exception e) {
-           logger.info("using logger for first time");
-           //System.out.println(e);
+           //logger.info("using logger for first time");
+           System.out.println(e);
            throw new RuntimeException("AN error oocured",e);
        }
 
