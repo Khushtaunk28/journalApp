@@ -2,6 +2,7 @@ package net.engineeringdigest.journalApp.service;
 
 
 import net.engineeringdigest.journalApp.Cache.AppCache;
+import net.engineeringdigest.journalApp.Constants.PlaceHolders;
 import net.engineeringdigest.journalApp.apiResponse.WeatherApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,7 +23,7 @@ public class weatherService {
     private AppCache appCache;
 
         public WeatherApiResponse getWeather(String city) {
-            String finalAPI=appCache.APP_CACHE.get("weather_api").replace("<city>",city).replace("<apikey>",apiKey);
+            String finalAPI=appCache.APP_CACHE.get("weather_api").replace(PlaceHolders.CITY,city).replace(PlaceHolders.API_KEY,apiKey);
 
             ResponseEntity<WeatherApiResponse> response=restTemplate.exchange(finalAPI, HttpMethod.GET,null, WeatherApiResponse.class);
             WeatherApiResponse body=response.getBody();
