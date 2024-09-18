@@ -1,5 +1,6 @@
 package net.engineeringdigest.journalApp.service;
 
+import lombok.extern.slf4j.Slf4j;
 import net.engineeringdigest.journalApp.Entity.User;
 import net.engineeringdigest.journalApp.Entity.journalEntry;
 import net.engineeringdigest.journalApp.repository.JournalEntryRepo;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
+@Slf4j
 public class JournalEntryService {
     @Autowired
     public JournalEntryRepo journalEntryRepo;
@@ -24,6 +26,7 @@ public class JournalEntryService {
    // private final Logger logger= LoggerFactory.getLogger(JournalEntryService.class);
 
     //postmap
+
    @Transactional//operate as single unit,if anyone of the proess fails ,then rollback
     public void saveEntry(journalEntry entry,String userName) {
        try {
@@ -32,8 +35,9 @@ public class JournalEntryService {
            journalEntry saved = journalEntryRepo.save(entry);
            user.getJournalEntries().add(saved);
            userEntryService.saveNewUser(user);
+           log.debug("hello now");
        }catch (Exception e) {
-           //logger.info("using logger for first time");
+           log.info("using logger for first time");
            System.out.println(e);
            throw new RuntimeException("AN error oocured",e);
        }

@@ -1,5 +1,6 @@
 package net.engineeringdigest.journalApp.service;
 
+import lombok.extern.slf4j.Slf4j;
 import net.engineeringdigest.journalApp.Entity.User;
 import net.engineeringdigest.journalApp.repository.userEntryRepo;
 import org.bson.types.ObjectId;
@@ -13,15 +14,22 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
+@Slf4j
 public class userEntryService {
     @Autowired
     public  userEntryRepo userEntryRepo ;
     private  final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     //postmap
     public  void saveEntry(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRoles(Arrays.asList("USER"));
-        userEntryRepo.save(user);
+        try {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.setRoles(Arrays.asList("USER"));
+            userEntryRepo.save(user);
+            log.info("wah bete");
+        } catch (Exception e) {
+            log.error("kya krte ho bhai");
+            throw new RuntimeException(e);
+        }
     }
     //new save fnc to encrypt pass
     public  void saveNewUser(User user) {
