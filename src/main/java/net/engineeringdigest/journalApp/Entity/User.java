@@ -21,6 +21,8 @@ public class User {
     @Indexed(unique=true)//to create unique useername
     @NonNull //from lombok
     private String username;
+    private String email;
+    private boolean sentimentAnalysis;
     @NonNull//to make sure password is not null
     private String password;
     private List<String> roles;
