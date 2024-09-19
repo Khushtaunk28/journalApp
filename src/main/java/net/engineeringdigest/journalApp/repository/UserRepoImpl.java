@@ -1,6 +1,5 @@
 package net.engineeringdigest.journalApp.repository;
 
-import jdk.dynalink.linker.LinkerServices;
 import net.engineeringdigest.journalApp.Entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
