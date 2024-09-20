@@ -24,7 +24,8 @@ public class RedisService {
         try {
             Object o = redisTemplate.opsForValue().get(key);
             ObjectMapper mapper=new ObjectMapper();
-            return mapper.readValue(o.toString(),weatherResponseClass);
+            String json = mapper.writeValueAsString(o);
+            return mapper.readValue(json,weatherResponseClass);
         } catch (Exception e) {
             log.error("Redis exception was handled",e);
             return null;
@@ -34,7 +35,9 @@ public class RedisService {
 
     public void  set(String key,Object o,Long ttl){
         try {
-            redisTemplate.opsForValue().set(key,o.toString(),ttl, TimeUnit.SECONDS);
+            ObjectMapper mapper=new ObjectMapper();
+            String json = mapper.writeValueAsString(o);
+            redisTemplate.opsForValue().set(key,json,ttl, TimeUnit.SECONDS);
         } catch (Exception e) {
             log.error("Redis exception was handled",e);
         }
