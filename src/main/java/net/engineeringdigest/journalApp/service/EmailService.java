@@ -12,14 +12,13 @@ public class EmailService {
     @Autowired
     private JavaMailSender mailSender;
 
-    public void senEmail(String to, String subject, String body) {
+    public void sendEmail(String to, String subject, String body) {
         try {
             SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
             simpleMailMessage.setTo(to);
             simpleMailMessage.setSubject(subject);
             simpleMailMessage.setText(body);
             mailSender.send(simpleMailMessage);
-
         }catch (Exception e) {
             log.error("Exception while sending mail",e);
         }

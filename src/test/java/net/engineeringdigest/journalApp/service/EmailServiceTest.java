@@ -12,7 +12,8 @@ public class EmailServiceTest {
 
     @Test
     void sendEmailTest() {
-        emailService.senEmail("khush.taunk@gmail.com","nice bete","OLd moeny is a good song");
+        emailService.sendEmail("2022cs_khushtaunk_b@nie.ac.in","nice bete,this auto-genearted through spring boot","Old money is a good song");
+        emailService.sendEmail("2022cs_kaushalkumar_b@nie.ac.in","nice bete,this auto-genearted through spring boot","Old money is a good song");
 
 
 

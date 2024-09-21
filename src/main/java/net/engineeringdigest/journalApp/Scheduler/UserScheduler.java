@@ -10,6 +10,8 @@ import net.engineeringdigest.journalApp.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -18,6 +20,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+
+@Component
 public class UserScheduler {
 
     @Autowired
@@ -38,7 +42,8 @@ public class UserScheduler {
         List<User> user = userRepo.getUserForSA();
         for (User u : user) {
             List<journalEntry> journalEntries = u.getJournalEntries();
-            List<Sentiment> sentiments= journalEntries.stream().filter(x -> x.getDate().isAfter(LocalDateTime.now().minus(7, ChronoUnit.DAYS))).map(x -> x.getSentiment()).collect(Collectors.toList());
+            //                                                                                                      .minus(7, ChronoUnit.DAYS))
+            List<Sentiment> sentiments= journalEntries.stream().filter(x -> x.getDate().isAfter(LocalDateTime.now().minus(7,ChronoUnit.DAYS))).map(x -> x.getSentiment()).collect(Collectors.toList());
             Map<Sentiment,Integer> sentimentCount=new HashMap<>();
             for(Sentiment sentiment : sentiments){
                 if(sentiment!=null)
@@ -54,8 +59,8 @@ public class UserScheduler {
                 }
             }
             if(mostFreqSentiment!=null){
-                SentimentData sentimentData= SentimentData.builder().email(u.getEmail()).sentiment("Sentiment for last 7 days"+mostFreqSentiment.toString()).build();
-                emailService.senEmail(u.getEmail(), "Sentiment for last seven days", mostFreqSentiment.toString());
+                SentimentData sentimentData= SentimentData.builder().email(u.getEmail()).sentiment("Sentiment for last 7 days"+mostFreqSentiment).build();
+                kafkaTemplate.send("weekly-sentiments",sentimentData.getEmail(),sentimentData);
             }
         }
     }

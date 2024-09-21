@@ -1,9 +1,7 @@
 package net.engineeringdigest.journalApp.service;
 
 import net.engineeringdigest.journalApp.model.SentimentData;
-import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +17,6 @@ public class SentimentConsumerService {
     }
 
     public void sendEmail(SentimentData sentimentData) {
-        emailService.senEmail(sentimentData.getEmail(),"Sentiment for previous week",sentimentData.getSentiment());
+        emailService.sendEmail(sentimentData.getEmail(),"Sentiment for previous week",sentimentData.getSentiment());
     }
 }

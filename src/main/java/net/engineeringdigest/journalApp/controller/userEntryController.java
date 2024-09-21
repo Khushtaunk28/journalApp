@@ -29,13 +29,15 @@ public class userEntryController {
 //    }
 
     @PutMapping()
-    public ResponseEntity<?> updateuser(@RequestBody User user, @PathVariable String userName) {
+    public ResponseEntity<?> updateuser(@RequestBody User user) {
         Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
         String username=authentication.getName();
 
-        User userIndb=UserService.findByUsername(userName);
+        User userIndb=UserService.findByUsername(username);
             userIndb.setUsername(user.getUsername());
             userIndb.setPassword(user.getPassword());
+            userIndb.setEmail(user.getEmail());
+            userIndb.setSentimentAnalysis(user.isSentimentAnalysis());
             UserService.saveEntry(userIndb);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
