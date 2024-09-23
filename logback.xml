@@ -1,0 +1,42 @@
+<!--<configuration>-->
+<!--&lt;!&ndash;    //Appender=decides where to print the logs&ndash;&gt;-->
+<!--    <appender name="myConsoleAppender" class="ch.qos.logback.core.ConsoleAppender">-->
+<!--        <encoder>-->
+<!--            <pattern>-->
+<!--                %d{HH.mm.ss.SSS} [%thread] %-5level %logger{36} - %msg%n-->
+<!--            </pattern>-->
+<!--        </encoder>-->
+
+<!--    </appender>-->
+
+
+<!--&lt;!&ndash;//rolling basically creates a new file every minute hr day (as specified)&ndash;&gt;-->
+<!--    <appender name="myFileAppender"  class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+<!--        <file>-->
+<!--&lt;!&ndash;            it is recommended to write the file path in different folder&ndash;&gt;-->
+<!--            journalApp.log-->
+<!--        </file>-->
+<!--        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">-->
+<!--            <fileNamePattern>journalApp-%d{yy-MM-dd_HH-mm}.%i.log</fileNamePattern>-->
+<!--            <maxFileSize>10MB</maxFileSize>-->
+<!--            <maxHistory>10</maxHistory>-->
+
+
+<!--        </rollingPolicy>-->
+<!--        <encoder>-->
+<!--            <pattern>-->
+<!--                %d{HH.mm.ss.SSS} [%thread] %-5level %logger{36} - %msgn %n-->
+<!--            </pattern>-->
+<!--        </encoder>-->
+
+
+
+<!--    </appender>-->
+
+<!--    <root level="INFO">-->
+<!--        <appender-ref ref="myCosoleAppender"/>-->
+<!--        <appender-ref ref="myFileAppender"/>-->
+<!--    </root>-->
+
+
+<!--</configuration>-->
