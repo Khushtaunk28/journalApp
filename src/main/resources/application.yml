@@ -1,20 +1,15 @@
-
-logging:
-  level:
-    net:
-      engineeringdigest:
-        journalApp: DEBUG
-
 spring:
   main:
     allow-circular-references: true
+    server:
+      port: ${SERVER_PORT}
+      servlet:
+        context-path: /journal
   data:
     mongodb:
       uri: ${MONGODB_URI}
       database: journaldb
       auto-index-creation: true
-  profiles:
-    active: dev
   mail:
     host: smtp.gmail.com
     port: 587
@@ -57,12 +52,6 @@ spring:
       session:
         timeout:
           ms: 45000
-
-
-##server:
-#  port: 8080
-#  servlet:
-#    context-path: /journal
 weather:
   api:
     key: ${WEATHER_API_KEY}
