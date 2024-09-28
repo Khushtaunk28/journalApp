@@ -25,7 +25,7 @@ public class SwaggerConfig {
                                 .description("By Khush")
                 )
                 .servers(Arrays.asList(new Server().url("http://localhost:8081").description("local"),
-                        new Server().url("http://localhost:8082").description("live")))
+                        new Server().url("https://afternoon-temple-75878-108783cdeb32.herokuapp.com/docs").description("live")))
 //                .tags(Arrays.asList(
 //                        new Tag().name("Public APi's"),
 //                        new Tag().name("User APi's"),
