@@ -1,0 +1,69 @@
+
+logging:
+  level:
+    net:
+      engineeringdigest:
+        journalApp: DEBUG
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://ktaunk28:qwerty123@cluster0.dim29.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+      database: journaldb
+      auto-index-creation: true
+  profiles:
+    active: dev
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: taunk.khush@gmail.com
+    password: pzlppdaucennrepp
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+  redis:
+    host: redis-19976.c264.ap-south-1-1.ec2.redns.redis-cloud.com
+    port: 19976
+    password: ROFhPAeWPHDCcE65ZRWYddwgLjDwTYtq
+
+  kafka:
+    bootstrap-servers: pkc-l7pr2.ap-south-1.aws.confluent.cloud:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+    consumer:
+      group-id: weekly-sentiment-group
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.kafka.consumer:
+          json:
+            trusted:
+              packages: net.engineeringdigest.journalApp.model
+    properties:
+      security:
+        protocol: SASL_SSL
+      sasl:
+        mechanism: PLAIN
+        jaas:
+          config: org.apache.kafka.common.security.plain.PlainLoginModule required username='ZJKA5YBXPOPURLIS' password='CM9KJLfpNPnsGe7lcconLIF5iOPSx/nzs/wlLvvtW44llXqJvm0FBwuhiqjuyI4F';
+      session:
+        timeout:
+          ms: 45000
+
+
+
+##server:
+#  port: 8080
+#  servlet:
+#    context-path: /journal
+weather:
+  api:
+    key: 9d25472903051d020d814a7e1a6faaa7
+
+
