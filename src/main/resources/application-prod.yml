@@ -1,9 +1,9 @@
 spring:
   data:
     mongodb:
-      uri:${MONGODB_URI}
-      database:journaldb
-      auto-index-creation:true
+      uri: ${MONGODB_URI}
+      database: journaldb
+      auto-index-creation: true
 
 server:
   servlet:
