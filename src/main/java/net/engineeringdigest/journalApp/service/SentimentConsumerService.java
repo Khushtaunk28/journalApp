@@ -11,7 +11,7 @@ public class SentimentConsumerService {
     @Autowired
     private EmailService emailService;
 
-    @KafkaListener(topics = "weekly_sentiments",groupId = "weekly-sentiment-group")
+    @KafkaListener(topics = "weekly-sentiments",groupId = "weekly-sentiment-group")
     public void consume(SentimentData sentimentData) {
         sendEmail(sentimentData);
     }

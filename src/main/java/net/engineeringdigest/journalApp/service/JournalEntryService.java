@@ -28,21 +28,17 @@ public class JournalEntryService {
     //postmap
 
    @Transactional//operate as single unit,if anyone of the proess fails ,then rollback
-    public void saveEntry(journalEntry entry,String userName) {
+   public void saveEntry(journalEntry journalEntry, String userName) {
        try {
            User user = userEntryService.findByUsername(userName);
-           //journalEntry.setDate(LocalDateTime.now());
-           journalEntry saved = journalEntryRepo.save(entry);
+           journalEntry.setDate(LocalDateTime.now());
+           journalEntry saved = journalEntryRepo.save(journalEntry);
            user.getJournalEntries().add(saved);
            userEntryService.saveNewUser(user);
-           log.debug("hello now");
-       }catch (Exception e) {
-           log.info("using logger for first time");
-           System.out.println(e);
-           throw new RuntimeException("AN error oocured",e);
+       } catch (Exception e) {
+           throw new RuntimeException("An error occurred while saving the entry.", e);
        }
-
-    }
+   }
     public void saveEntry(journalEntry entry) {
         journalEntryRepo.save(entry);
 

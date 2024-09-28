@@ -15,9 +15,9 @@ import java.util.Date;
 public class journalEntry {
     @Id
     private ObjectId id;
-    private LocalDateTime date;
     @NonNull
     private String title;
+    private LocalDateTime date;
     private String content;
     private Sentiment sentiment;
 

@@ -12,15 +12,12 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
-
 @Component
 public class UserScheduler {
 
@@ -32,6 +29,7 @@ public class UserScheduler {
 
     @Autowired
     private KafkaTemplate<String, SentimentData> kafkaTemplate;
+
 
 
     @Autowired
@@ -58,14 +56,17 @@ public class UserScheduler {
                     mostFreqSentiment=entry.getKey();
                 }
             }
-            if(mostFreqSentiment!=null){
-                SentimentData sentimentData= SentimentData.builder().email(u.getEmail()).sentiment("Sentiment for last 7 days"+mostFreqSentiment).build();
-                kafkaTemplate.send("weekly-sentiments",sentimentData.getEmail(),sentimentData);
+            if (mostFreqSentiment!= null) {
+                SentimentData sentimentData = SentimentData.builder().email(u.getEmail()).sentiment("Sentiment for last 7 days " + mostFreqSentiment).build();
+                try{
+                    kafkaTemplate.send("weekly-sentiments", sentimentData.getEmail(), sentimentData);
+                }catch (Exception e){
+                    emailService.sendEmail(sentimentData.getEmail(), "Sentiment for previous week", sentimentData.getSentiment());
+                }
             }
         }
     }
-
-    @Scheduled(cron = "0 */5 * * * *")
+    @Scheduled(cron = "0 0/10 * ? * *")
     public void clearCache(){
         appCache.init();
         }

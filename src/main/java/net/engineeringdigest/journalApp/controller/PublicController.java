@@ -38,7 +38,6 @@ public class PublicController {
     @PostMapping("/sign-up")
     public  void signup(@RequestBody User user) {
         UserService.saveEntry(user);
-
     }
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody User user) {
