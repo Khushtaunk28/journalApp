@@ -1,22 +1,24 @@
 package net.engineeringdigest.journalApp.controller;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import net.engineeringdigest.journalApp.Entity.User;
 import net.engineeringdigest.journalApp.Utils.JwtUtil;
-import net.engineeringdigest.journalApp.repository.userEntryRepo;
+import net.engineeringdigest.journalApp.dto.UserDTO;
 import net.engineeringdigest.journalApp.service.userEntryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RestController
 @RequestMapping("/public")
+@Tag(name="Public Api's",description = "Check for health and first time signup and login")
+
 public class PublicController {
 
     @Autowired
@@ -36,8 +38,13 @@ public class PublicController {
         return "OK";
     }
     @PostMapping("/sign-up")
-    public  void signup(@RequestBody User user) {
-        UserService.saveEntry(user);
+    public  void signup(@RequestBody UserDTO user) {
+        User newUser=new User();
+        newUser.setEmail(user.getEmail());
+        newUser.setUsername(user.getUsername());
+        newUser.setPassword(user.getPassword());
+        newUser.setSentimentAnalysis(user.isSentimentAnalysis());
+        UserService.saveEntry(newUser);
     }
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody User user) {

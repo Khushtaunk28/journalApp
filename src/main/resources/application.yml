@@ -55,5 +55,7 @@ spring:
 weather:
   api:
     key: ${WEATHER_API_KEY}
-
+springdoc:
+  swagger-ui:
+    path: /docs
 
