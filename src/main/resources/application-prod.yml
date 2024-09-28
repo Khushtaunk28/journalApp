@@ -1,11 +1,11 @@
 spring:
   data:
     mongodb:
-      uri:mongodb+srv://ktaunk28:qwerty123@cluster0.dim29.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+      uri:${MONGODB_URI}
       database:journaldb
       auto-index-creation:true
 
 server:
   servlet:
     context-path: /product
-  port: 8082
+  port: ${SERVER_PORT}
