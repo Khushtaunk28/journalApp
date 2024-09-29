@@ -1,5 +1,6 @@
 package net.engineeringdigest.journalApp.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import net.engineeringdigest.journalApp.Entity.User;
@@ -33,10 +34,12 @@ public class PublicController {
     @Autowired
     private userEntryService UserService;
     @CrossOrigin(origins = "http://localhost:8082")
+    @Operation(description = "check if the App is working without any auth")
     @GetMapping("/health-check")
     public String healthCheck() {
         return "OK";
     }
+    @Operation(description = "Sign-up for first-time user")
     @PostMapping("/sign-up")
     public  void signup(@RequestBody UserDTO user) {
         User newUser=new User();
@@ -46,10 +49,14 @@ public class PublicController {
         newUser.setSentimentAnalysis(user.isSentimentAnalysis());
         UserService.saveEntry(newUser);
     }
+    @Operation(description = "Login for User")
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody User user) {
+    public ResponseEntity login(@RequestBody UserDTO user) {
+        User newUser=new User();
+        newUser.setUsername(user.getUsername());
+        newUser.setPassword(user.getPassword());
         try{
-            authentication.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
+            authentication.authenticate(new UsernamePasswordAuthenticationToken(newUser.getUsername(), newUser.getPassword()));
             UserDetails userDetails=userDetailsService.loadUserByUsername(user.getUsername());
             String jwt=jwtUtil.generateToken(userDetails.getUsername());
             return new ResponseEntity<>(jwt, HttpStatus.OK);
