@@ -1,8 +1,10 @@
 package net.engineeringdigest.journalApp.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import net.engineeringdigest.journalApp.Entity.User;
 import net.engineeringdigest.journalApp.apiResponse.WeatherApiResponse;
+import net.engineeringdigest.journalApp.dto.UserDTO;
 import net.engineeringdigest.journalApp.service.userEntryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,21 +33,27 @@ public class userEntryController {
 //    }
 
     @PutMapping()
-    public ResponseEntity<?> updateuser(@RequestBody User user) {
+    @Operation(summary = "Update-edit user details with Updated details input")
+    public ResponseEntity<?> updateuser(@RequestBody UserDTO user) {
+        User newUser=new User();
+        newUser.setEmail(user.getEmail());
+        newUser.setUsername(user.getUsername());
+        newUser.setPassword(user.getPassword());
+        newUser.setSentimentAnalysis(user.isSentimentAnalysis());
         Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
         String username=authentication.getName();
-
         User userIndb=UserService.findByUsername(username);
-            userIndb.setUsername(user.getUsername());
-            userIndb.setPassword(user.getPassword());
-            userIndb.setEmail(user.getEmail());
-            userIndb.setSentimentAnalysis(user.isSentimentAnalysis());
+            userIndb.setUsername(newUser.getUsername());
+            userIndb.setPassword(newUser.getPassword());
+            userIndb.setEmail(newUser.getEmail());
+            userIndb.setSentimentAnalysis(newUser.isSentimentAnalysis());
             UserService.saveEntry(userIndb);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
     
 
     @DeleteMapping("/user")
+    @Operation(summary = "Delete user by its id")
     public ResponseEntity<?> deleteuserById() {
         Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
         UserService.deleteByUserName(authentication.getName());
@@ -53,6 +61,7 @@ public class userEntryController {
     }
 
     @GetMapping
+    @Operation(summary = "Get the current Weather Of your City")
     public ResponseEntity<?> showWeather(){
         Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
         WeatherApiResponse response=weatherService.getWeather("Patna");
@@ -60,7 +69,6 @@ public class userEntryController {
         if(response!=null){
             greetings=",Weather feels like"+response.getCurrent().getFeelslike();
         }
-
         return new ResponseEntity<>("HI"+authentication.getName()+greetings,HttpStatus.OK);
     }
 

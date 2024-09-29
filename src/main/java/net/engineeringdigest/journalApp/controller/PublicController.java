@@ -34,13 +34,13 @@ public class PublicController {
     @Autowired
     private userEntryService UserService;
     @CrossOrigin(origins = "http://localhost:8082")
-    @Operation(description = "check if the App is working without any auth")
+    @Operation(summary = "check if the App is working without any auth")
     @GetMapping("/health-check")
     public String healthCheck() {
         return "OK";
     }
-    @Operation(description = "Sign-up for first-time user")
     @PostMapping("/sign-up")
+    @Operation(summary = "Sign-up for first-time user")
     public  void signup(@RequestBody UserDTO user) {
         User newUser=new User();
         newUser.setEmail(user.getEmail());
@@ -49,8 +49,9 @@ public class PublicController {
         newUser.setSentimentAnalysis(user.isSentimentAnalysis());
         UserService.saveEntry(newUser);
     }
-    @Operation(description = "Login for User")
+
     @PostMapping("/login")
+    @Operation(summary= "Login for User")
     public ResponseEntity login(@RequestBody UserDTO user) {
         User newUser=new User();
         newUser.setUsername(user.getUsername());
