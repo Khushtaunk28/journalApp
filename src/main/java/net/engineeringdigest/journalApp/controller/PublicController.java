@@ -49,7 +49,6 @@ public class PublicController {
         newUser.setSentimentAnalysis(user.isSentimentAnalysis());
         UserService.saveEntry(newUser);
     }
-
     @PostMapping("/login")
     @Operation(summary= "Login for User")
     public ResponseEntity login(@RequestBody UserDTO user) {

@@ -1,6 +1,7 @@
 package net.engineeringdigest.journalApp.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.val;
 import net.engineeringdigest.journalApp.Entity.User;
@@ -43,7 +44,10 @@ public class JournalEntryController_v2 {
     }
 
     @PostMapping()
-    @Operation(summary = "Create your journal entry for respective user")
+    @Operation(summary = "Create your journal entry for respective user" ,description= "Tell the sentiment out of the listed Below /n HAPPY,\n" +
+            "    SAD,\n" +
+            "    ANGRY,\n" +
+            "    ANXIOUS")
     public ResponseEntity<journalEntry> createEntry(@RequestBody JournalDTO entry) {
         //journalEntryService.saveEntry(entry);
         journalEntry newEntry = new journalEntry();
