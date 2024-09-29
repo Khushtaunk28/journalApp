@@ -8,12 +8,13 @@ import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import io.swagger.v3.oas.models.servers.Server;
 import io.swagger.v3.oas.models.tags.Tag;
+import org.apache.catalina.filters.CorsFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import java.util.Arrays;
 import java.util.List;
-
 @Configuration
 public class SwaggerConfig {
 
@@ -42,4 +43,28 @@ public class SwaggerConfig {
                                 .name("Authorization")
                 ));
     }
+//    @Bean
+//    public Docket api() {
+//        return new Docket(DocumentationType.SWAGGER_2)
+//                .select()
+//                .apis(RequestHandlerSelectors.any())
+//                .paths(PathSelectors.any())
+//                .build()
+//                .pathMapping("/")
+//                .host("your-different-url.com");
+//    }
+
+//    @Bean
+//    public CorsFilter corsFilter() {
+//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//
+//        CorsConfiguration config = new CorsConfiguration();
+//        config.setAllowCredentials(true);
+//        config.addAllowedOrigin("*");
+//        config.addAllowedHeader("*");
+//        config.addAllowedMethod("*");
+//
+//        source.registerCorsConfiguration("/v3/api-docs", config);
+//        return new CorsFilter();
+//    }
 }

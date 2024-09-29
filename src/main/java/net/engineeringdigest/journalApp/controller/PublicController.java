@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RestController
 @RequestMapping("/public")
+@CrossOrigin
 @Tag(name="Public Api's",description = "Check for health and first time signup and login")
-
 public class PublicController {
 
     @Autowired
@@ -32,7 +32,7 @@ public class PublicController {
 
     @Autowired
     private userEntryService UserService;
-
+    @CrossOrigin(origins = "http://localhost:8082")
     @GetMapping("/health-check")
     public String healthCheck() {
         return "OK";
