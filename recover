@@ -65,8 +65,8 @@ new file mode 100644
 @@ -0,0 +1,17 @@
 +package net.engineeringdigest.journalApp.service;
 +
-+import net.engineeringdigest.journalApp.Entity.journalEntry;
-+import net.engineeringdigest.journalApp.repository.JournalEntryRepo;
++import Entity.net.kt.journalApp.journalEntry;
++import repository.net.kt.journalApp.JournalEntryRepo;
 +import org.springframework.beans.factory.annotation.Autowired;
 +import org.springframework.stereotype.Component;
 +
@@ -92,7 +92,7 @@ new file mode 100644
 @@ -0,0 +1,9 @@
 +package net.engineeringdigest.journalApp.repository;
 +
-+import net.engineeringdigest.journalApp.Entity.journalEntry;
++import Entity.net.kt.journalApp.journalEntry;
 +import org.springframework.boot.autoconfigure.data.mongo.MongoRepositoriesAutoConfiguration;
 +import org.springframework.data.mongodb.repository.MongoRepository;
 +
@@ -111,8 +111,8 @@ new file mode 100644
 @@ -0,0 +1,39 @@
 +package net.engineeringdigest.journalApp.controller;
 +
-+import net.engineeringdigest.journalApp.Entity.journalEntry;
-+import net.engineeringdigest.journalApp.service.JournalEntryService;
++import Entity.net.kt.journalApp.journalEntry;
++import service.net.kt.journalApp.JournalEntryService;
 +import org.springframework.beans.factory.annotation.Autowired;
 +import org.springframework.web.bind.annotation.*;
 +
@@ -157,7 +157,7 @@ deleted file mode 100644
 @@ -1,38 +0,0 @@
 -package net.engineeringdigest.journalApp.controller;
 -
--import net.engineeringdigest.journalApp.Entity.journalEntry;
+-import Entity.net.kt.journalApp.journalEntry;
 -import org.springframework.web.bind.annotation.*;
 -
 -import java.util.ArrayList;

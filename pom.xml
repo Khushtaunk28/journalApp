@@ -8,7 +8,7 @@
 		<version>2.7.16</version>
 		<relativePath/>
 	</parent>
-	<groupId>net.engineeringdigest</groupId>
+	<groupId>net.khushtaunk</groupId>
 	<artifactId>journalApp</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Journal App</name>
@@ -56,7 +56,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mail</artifactId>
-<!--			<version>1.2.6.RELEASE</version>-->
 		</dependency>
         <dependency>
 			<groupId>org.springframework.boot</groupId>

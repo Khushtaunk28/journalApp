@@ -41,7 +41,7 @@ spring:
         spring.kafka.consumer:
           json:
             trusted:
-              packages: net.engineeringdigest.journalApp.model
+              packages: net.khushtaunk.journalApp.model
     properties:
       security:
         protocol: SASL_SSL
