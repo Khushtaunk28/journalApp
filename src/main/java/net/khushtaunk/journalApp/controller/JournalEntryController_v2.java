@@ -5,7 +5,9 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import net.khushtaunk.journalApp.Entity.User;
 import net.khushtaunk.journalApp.Entity.journalEntry;
 import net.khushtaunk.journalApp.dto.JournalDTO;
+import net.khushtaunk.journalApp.enums.Sentiment;
 import net.khushtaunk.journalApp.service.JournalEntryService;
+import net.khushtaunk.journalApp.service.SentimentalAnalysisService;
 import net.khushtaunk.journalApp.service.userEntryService;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,8 @@ import java.util.stream.Collectors;
 public class JournalEntryController_v2 {
     @Autowired
     private JournalEntryService journalEntryService;
+    @Autowired
+    private SentimentalAnalysisService sentimentalAnalysisService;
     @Autowired
     private userEntryService userService;
     @GetMapping()
@@ -51,16 +55,17 @@ public class JournalEntryController_v2 {
         journalEntry newEntry = new journalEntry();
         newEntry.setTitle(entry.getTitle());
         newEntry.setContent(entry.getContent());
-        newEntry.setSentiment(entry.getSentiment());
+        String sentiment=sentimentalAnalysisService.analyzeSentiment(newEntry.getContent());
+        newEntry.setSentiment(sentiment);
         try {
             Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
             String userName=authentication.getName();
             journalEntryService.saveEntry(newEntry, userName);
-
             return new ResponseEntity<>(newEntry, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+
     }
     @Operation(summary = "Get user by ID")
     @GetMapping("id/{myId}")
@@ -103,7 +108,7 @@ public class JournalEntryController_v2 {
         journalEntry newEntry = new journalEntry();
         newEntry.setTitle(entry.getTitle());
         newEntry.setContent(entry.getContent());
-        newEntry.setSentiment(entry.getSentiment());
+//        newEntry.setSentiment(entry.getSentiment());
         ObjectId objectId=new ObjectId(id);
         Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
         String username=authentication.getName();

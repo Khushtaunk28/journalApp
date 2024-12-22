@@ -25,7 +25,7 @@ public class JournalEntryService {
 
     //postmap
 
-   @Transactional//operate as single unit,if anyone of the proess fails ,then rollback
+   @Transactional//operate as single unit,if anyone of the proecss fails ,then rollback
    public void saveEntry(journalEntry journalEntry, String userName) {
        try {
            User user = userEntryService.findByUsername(userName);

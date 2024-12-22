@@ -51,7 +51,6 @@ public class JwtUtil {
 
     public boolean validateToken(String jwtToken) {
         return  !isTokenExpired(jwtToken);
-
     }
 
     public boolean isTokenExpired(String jwtToken) {

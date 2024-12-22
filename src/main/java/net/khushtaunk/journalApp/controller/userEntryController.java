@@ -12,14 +12,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import net.khushtaunk.journalApp.service.weatherService;
+import net.khushtaunk.journalApp.service.WeatherService;
 
 @RestController
 @RequestMapping("/user")
 @Tag(name="User APi's",description = "Read update and delete User")
 public class userEntryController {
     @Autowired
-    private weatherService weatherService;
+    private WeatherService weatherService;
     @Autowired
     private userEntryService UserService;
     @Autowired
@@ -62,12 +62,12 @@ public class userEntryController {
     @Operation(summary = "Get the current Weather Of your City")
     public ResponseEntity<?> showWeather(){
         Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
-        WeatherApiResponse response=weatherService.getWeather("Patna");
+        WeatherApiResponse response=weatherService.getWeather("Mysore");
         String greetings=" ";
         if(response!=null){
             greetings=",Weather feels like"+response.getCurrent().getFeelslike();
         }
-        return new ResponseEntity<>("HI"+authentication.getName()+greetings,HttpStatus.OK);
+        return new ResponseEntity<>("Hi  "+ "Mr/Mrs."+authentication.getName()+greetings,HttpStatus.OK);
     }
 
 

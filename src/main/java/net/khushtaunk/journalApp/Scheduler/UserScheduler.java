@@ -40,13 +40,13 @@ public class UserScheduler {
         for (User u : user) {
             List<journalEntry> journalEntries = u.getJournalEntries();
             //                                                                                                      .minus(7, ChronoUnit.DAYS))
-            List<Sentiment> sentiments= journalEntries.stream().filter(x -> x.getDate().isAfter(LocalDateTime.now().minusDays(7))).map(x -> x.getSentiment()).collect(Collectors.toList());
+            //List<Sentiment> sentiments= journalEntries.stream().filter(x -> x.getDate().isAfter(LocalDateTime.now().minusDays(7))).map(x -> x.getSentiment()).collect(Collectors.toList());
             Map<Sentiment,Integer> sentimentCount=new HashMap<>();
-            for(Sentiment sentiment : sentiments){
-                if(sentiment!=null)
-                    sentimentCount.put(sentiment,sentimentCount.getOrDefault(sentiment,0)+1);
-
-            }
+//            for(Sentiment sentiment : sentiments){
+//                if(sentiment!=null)
+//                    sentimentCount.put(sentiment,sentimentCount.getOrDefault(sentiment,0)+1);
+//
+//            }
             Sentiment mostFreqSentiment=null;
             int maxcount=0;
             for(Map.Entry<Sentiment,Integer> entry : sentimentCount.entrySet()){

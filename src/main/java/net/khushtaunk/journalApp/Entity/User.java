@@ -16,7 +16,7 @@ public class User {
     @Id
     private ObjectId id;
     //go to application properties to tell mongodb as it dont craete automatically
-    @Indexed(unique=true)//to create unique useername
+    @Indexed(unique=true)//to create unique username
 //    @NonNull //from lombok
     private String username;
     private String email;
