@@ -1,0 +1,16 @@
+.signup-form{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+}
+h1{
+    font-family: 'Times New Roman', Times, serif;
+}
+.formcss{
+    height: 10vh;
+    width: 50%;
+
+}
+.
