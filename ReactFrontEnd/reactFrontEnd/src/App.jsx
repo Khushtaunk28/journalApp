@@ -1,9 +1,11 @@
-import {Signup,LogIn} from "./components/signup";
+import Signup from "./components/signup";
+import LogIn from "./components/login";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Home from "./components/Home";
 import Contact from "./components/Contact";
 import {BrowserRouter as Router ,Route,Routes} from "react-router-dom"
+import { ToastContainer } from "react-toastify";
 import React from 'react'
 import "./styles/signup.scss"
 import "./styles/App.scss"
@@ -11,6 +13,7 @@ import "./styles/Header.scss"
 import "./styles/Home.scss"
 import "./styles/Footer.scss"
 import "./styles/Contact.scss"
+import "./styles/Login.scss"
 
 const App = () => {
   return (
@@ -18,6 +21,7 @@ const App = () => {
     
     <Router>
     <Header/>
+    <ToastContainer/>
       <Routes>
         <Route path="/" element={<Home/>}/>
         <Route path="/sign-up" element={<Signup/>}/>

@@ -1,20 +1,27 @@
 import React from 'react'
 import { useState } from 'react'
+import { signUp } from '../services/user-service';
+import { toast } from 'react-toastify'; 
 const Signup = () => {
   const [username,setusername]=useState("");
   const [password,setpassword]=useState("");
   const handleClick=(e)=>{
     e.preventDefault()
     const user={username,password}
-    console.log(user)
-    fetch("http://localhost:8080/user/sign-up",{
-      method: "POST",
-      headers :{"Content-Type":"application/json"},
-      body:JSON.stringify(user)
-    }).then(()=>{
-      console.log("New user signed up")
-    })
-  }
+    console.log(user);
+    signUp(user).then((resp)=>{
+    console.log(resp)
+    console.log("success log")
+    toast.success("User registered successfully")
+    setpassword:" "
+    setusername:" "
+  })
+  .catch((error)=>{
+  console.log(error)
+  console.log("Error")
+  toast.error("There is some error")
+  })
+}
   return (
     <div className='signup-form'>
         <main>
@@ -38,7 +45,4 @@ const Signup = () => {
     </div>
   )
 }
-const LogIn=()=>{
-
-}
-export {Signup,LogIn}
+export default Signup;
