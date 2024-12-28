@@ -36,6 +36,7 @@ const LogIn = () => {
       console.error('Login failed:', error);
     }
   };
+
   
   return (
     <div className='login-form'>
@@ -60,7 +61,15 @@ const LogIn = () => {
       </main>
     </div>
   )
+};  
+const ProtectedRoute = ({ children }) => {
+  const token = localStorage.getItem('jwt');
+  if (!token) {
+    // If no token is found, redirect to the login page
+    return <Navigate to="/login" />;
+  }
+  // If the token exists, render the children (the protected route, in this case)
+  return children;
 };
 
-
-export default LogIn;
+export  {LogIn,ProtectedRoute};

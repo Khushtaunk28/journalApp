@@ -1,5 +1,13 @@
+import { div } from 'framer-motion/client';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+
+const journalEntry=()=>{
+    <div>make your journal Entry</div>
+}
+const fetchjournalEntry=()=>{
+    <div>fetch the entries</div>
+}
 
 const SignOut = () => {
   const navigate = useNavigate();
