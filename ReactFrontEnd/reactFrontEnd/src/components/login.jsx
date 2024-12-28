@@ -1,13 +1,14 @@
 import React from 'react'
 import { useState } from 'react';
-import axios from 'axios';
-import { createRequestHandler } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import {toast} from "react-toastify"
 import { logIn } from '../services/user-service';
+
 
 const LogIn = () => {
   const [username, setusername] = useState("");
   const [password, setpassword] = useState("");
+  const navigate = useNavigate();
 
   const handleLogIn = async (e) => {
     e.preventDefault();
@@ -17,6 +18,7 @@ const LogIn = () => {
       console.log('Login successful:', response);
       localStorage.setItem('jwt', response.token); // Save JWT token
       toast.success('Login successful!');
+      navigate('/journal')
     } catch (error) {
       if (error.response) {
         // Backend returned an error response
@@ -52,11 +54,13 @@ const LogIn = () => {
             value={password}
             onChange={(e)=>setpassword(e.target.value)}/>
           </div>
-          <button className='login-button' onClick={handleLogIn}>Login</button>
+          <button className='login-button' onClick={handleLogIn}
+          >Login</button>
         </form>
       </main>
     </div>
   )
 };
+
 
 export default LogIn;
