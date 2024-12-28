@@ -1,6 +1,7 @@
 import Signup from "./components/signup";
 import React from 'react'
-import "./styles/signup.css"
+import "./styles/signup.scss"
+import "./styles/App.scss"
 
 const App = () => {
   return (

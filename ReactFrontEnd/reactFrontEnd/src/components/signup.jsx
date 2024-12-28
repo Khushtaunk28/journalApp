@@ -4,14 +4,17 @@ const Signup = () => {
     <div className='signup-form'>
         <main>
             <h1>Sign up Page</h1>
-        </main>
         <form action="sign-up" className='formcss'>
-            <label htmlFor="username">Username:</label>
-            <input type="text" name="username" id="username" placeholder='Enter your name' />
-            <label htmlFor="pass">Password</label>
-            <input type="password" placeholder='********' />
-            <button >Submit</button>
+          <div>
+          <label htmlFor="username">Username:</label>
+          <input type="text" name="username" id="username" placeholder='Enter your name' />
+          </div>
+          <div><label htmlFor="pass">Password:</label>
+          <input type="password" placeholder='********' />
+          </div>
+            <button type='Submit'>Sign-Up</button>
         </form>
+        </main>
     </div>
   )
 }
