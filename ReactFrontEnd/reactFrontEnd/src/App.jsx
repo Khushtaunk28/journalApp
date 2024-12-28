@@ -1,4 +1,7 @@
 import Signup from "./components/signup";
+import Header from "./components/Header";
+import Home from "./components/Home";
+import {BrowserRouter as Router ,Route,Routes} from "react-router-dom"
 import React from 'react'
 import "./styles/signup.scss"
 import "./styles/App.scss"
@@ -6,11 +9,13 @@ import "./styles/App.scss"
 const App = () => {
   return (
     <>
-    <div>
-    <Signup/>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home/>}/>
+        <Route path="/sign-up" element={<Signup/>}/>
+      </Routes>
+    </Router>
     </>
-    
   )
 }
 
