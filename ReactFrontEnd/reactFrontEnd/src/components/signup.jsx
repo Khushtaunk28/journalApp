@@ -18,4 +18,7 @@ const Signup = () => {
     </div>
   )
 }
-export default Signup;
+const LogIn=()=>{
+
+}
+export {Signup,LogIn}

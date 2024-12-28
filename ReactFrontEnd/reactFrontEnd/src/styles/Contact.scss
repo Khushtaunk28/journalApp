@@ -1,0 +1,63 @@
+.contact-form{
+    height: 100vh;
+    width: 100%;
+    background-color: lightgoldenrodyellow;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    main{
+        background-color: lightgray;
+        height: 30rem;
+        width: 70%;
+        padding: 3rem;
+        border-radius: 100px 100px 100px 100px ;
+        h1{
+            font-family: 'Times New Roman', Times, serif;
+            color: green;
+        }
+        form{
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            div{
+                height: 3rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 60%;
+                margin: 0.5rem;
+                >label{
+                    font: 400 1.2rem blue;
+                    width: 20%;
+                    margin: 0 1rem;
+                }
+                input{
+                    align-self: stretch;
+                    border: none;
+                    width: 80%;
+                    padding: 1rem;
+                    border-radius: 5px;
+                    border: 1px solid goldenrod;
+                }
+            }
+        }
+        button{
+            margin: 3rem 0;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 5px;
+            background-color: green;
+            color: aqua;
+            width: 100px;
+            font: 400 1rem;
+            &:hover{
+                opacity: 0.8;
+            }
+
+
+
+        }
+    }
+
+}

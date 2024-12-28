@@ -64,4 +64,15 @@
     to {
       transform: translateX(-10px);
     }
+
   }
+  .write-us{
+    display: inline-block; /* Ensures the border wraps only the text */
+    border: 2px solid transparent; /* Initially, the border is invisible */
+    transition: border-color 0.3s ;
+    background-color: lightgreen;
+    border-radius: 20px 20px 20px 20px;
+  &:hover {
+    border-color: #3498db; /* Change to the desired border color on hover */
+  }
+}

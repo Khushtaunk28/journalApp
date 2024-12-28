@@ -1,0 +1,27 @@
+footer{
+    width: 100%;
+    height: 200px;
+    background-color: lightpink;
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    div{
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+    >div{
+        display: flex;
+        align-items: center;
+        >a{
+            color: black;
+            font: 900 1rem ;
+            padding: 0.2rem;
+            &:hover{
+                color: red;
+            }
+        }
+
+    }
+    }
+    
+}

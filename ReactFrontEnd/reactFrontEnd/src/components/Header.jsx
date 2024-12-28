@@ -9,6 +9,7 @@ const Header = () => {
         <h1>Mood Memo</h1>
         <main>
             <HashLink to={"/#home"}>Home</HashLink>
+            <Link to={"/log-in"}>LogIn</Link>
             <Link to={"/sign-up"}>Create-Account</Link>
             <HashLink to={"/#about"}>About</HashLink>
         </main>
