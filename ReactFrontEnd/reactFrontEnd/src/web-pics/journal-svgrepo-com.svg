@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+	 viewBox="0 0 460 460" xml:space="preserve">
+<g>
+	<path style="fill:#FFD170;" d="M154.2,447.199l293-293C415.869,64.419,330.464,0,230,0C102.975,0,0,102.974,0,230
+		C0,330.464,64.42,415.869,154.2,447.199z"/>
+	<path style="fill:#FF984C;" d="M460,230c0-26.562-4.517-52.064-12.801-75.801L353,60L107,400l47.199,47.199
+		C177.936,455.483,203.439,460,230,460C357.026,460,460,357.025,460,230z"/>
+	<polygon style="fill:#FFF0CF;" points="255,360 255,390 127,390 127,360 191,350 	"/>
+	<polygon style="fill:#FFFFFF;" points="245,340 255,360 127,360 127,330 	"/>
+	<polygon style="fill:#405A0F;" points="137,340 121.667,330 107,340 107,400 245,400 245,380 137,380 	"/>
+	<polygon style="fill:#2A3C0A;" points="137,340 107,340 107,60 137,60 147,200 	"/>
+	<polygon style="fill:#557714;" points="245,340 137,340 137,60 245,60 255,200 	"/>
+	<polygon style="fill:#FFE1A0;" points="353,360 353,390 245,390 245,360 299,350 	"/>
+	<rect x="245" y="330" style="fill:#FFF0CF;" width="108" height="30"/>
+	<rect x="245" y="60" style="fill:#2A3C0A;" width="108" height="280"/>
+	<polygon style="fill:#2A3C0A;" points="353,380 353,400 245,400 245,380 297.667,380 	"/>
+	<polygon style="fill:#2A3C0A;" points="27,230 60.334,217.5 70.513,230 60.334,242.5 	"/>
+	<polygon style="fill:#FFFFFF;" points="107,200 60.334,217.5 60.334,242.5 107,260 127.654,230 	"/>
+	<polygon style="fill:#FFD170;" points="371.992,230 220.996,238.571 107,230 107,200 353,200 	"/>
+	<polygon style="fill:#FFC240;" points="353,260 107,260 107,230 371.992,230 	"/>
+	<polygon style="fill:#FFE1A0;" points="373,200 353,200 353,260 373,260 383,230 	"/>
+	<path style="fill:#AA1106;" d="M424.64,230v10c0,11-9,20-20,20H373v-30l25.82-10L424.64,230z"/>
+	<path style="fill:#FF1909;" d="M424.64,220v10H373v-30h31.64C415.64,200,424.64,209,424.64,220z"/>
+</g>
+</svg>
