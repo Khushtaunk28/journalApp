@@ -1,5 +1,6 @@
-import { div } from 'framer-motion/client';
+import { div, h1 } from 'framer-motion/client';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 const journalEntry=()=>{
@@ -18,7 +19,19 @@ const SignOut = () => {
     navigate('/log-in');
   };
   return (
-    <button onClick={handleSignOut}>Sign Out</button>
+    <div className='journal'>
+       <h1>Welcome to your Daily Journal</h1>
+       <Link to={"/journal-page"}>Create a new Entry</Link>
+
+
+
+
+
+
+
+
+       <button onClick={handleSignOut}>Sign Out</button>
+    </div>
   );
 };
 

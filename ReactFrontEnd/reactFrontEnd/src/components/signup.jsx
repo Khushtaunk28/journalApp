@@ -31,7 +31,7 @@ const Signup = () => {
           <label htmlFor="username">Username:</label>
           <input type="text" name="username" id="username" placeholder='Enter your name' 
           value={username}
-          onChange={(e)=>setusername(e.target.value)} />
+          onChange={(e)=>setusername(e.target.value)}/>
           </div>
           <div><label htmlFor="pass">Password:</label >
           <input type="password" placeholder='********'

@@ -15,6 +15,8 @@ import "./styles/Home.scss"
 import "./styles/Footer.scss"
 import "./styles/Contact.scss"
 import "./styles/Login.scss"
+import "./styles/JournalEntry.scss"
+import JournalPage from "./components/JournalPage";
 
 const App = () => {
   return (
@@ -28,9 +30,8 @@ const App = () => {
         <Route path="/sign-up" element={<Signup/>}/>
         <Route path="/log-in" element={<LogIn/>}/>
         <Route path="/contact-us" element={<Contact/>}/>
-        <Route path="/" element={<ProtectedRoute />}>
-          <Route path="/journal" element={<SignOut/>} />
-        </Route>
+        <Route path="/journal" element={<ProtectedRoute><SignOut /></ProtectedRoute>}/>
+        <Route path="/journal-page" element={<JournalPage/>}/>
       </Routes>
       <Footer/>
     </Router>

@@ -25,7 +25,7 @@ const LogIn = () => {
         if (error.response.status === 401) {
           toast.error('Invalid credentials!');
         } else if (error.response.status === 404) {
-          toast.error('Login endpoint not found!');
+          toast.error('Wrong Username or Password');
         } else {
           toast.error('Something went wrong on the server!');
         }
@@ -66,7 +66,7 @@ const ProtectedRoute = ({ children }) => {
   const token = localStorage.getItem('jwt');
   if (!token) {
     // If no token is found, redirect to the login page
-    return <Navigate to="/login" />;
+    return <Navigate to="/log-in" />;
   }
   // If the token exists, render the children (the protected route, in this case)
   return children;
