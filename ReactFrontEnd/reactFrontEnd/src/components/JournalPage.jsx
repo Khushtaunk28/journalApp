@@ -17,7 +17,6 @@ const JournalPage = () => {
         setError("No JWT token found.");
         return;
       }
-
       try {
         const response = await fetch("http://localhost:8081/journal", {
           method: "GET",
@@ -31,6 +30,7 @@ const JournalPage = () => {
           throw new Error("Failed to fetch journals");
         }
         const data = await response.json();
+        console.log(data); // Check the structure of the response
         setJournals(data); // Set the response data
       } catch (error) {
         console.error("Error fetching journals:", error.message);
@@ -40,33 +40,66 @@ const JournalPage = () => {
     fetchJournals();
   }, []);
 
+
+
   // Handle creating a new journal entry
   const handleCreateJournal = async () => {
     if (!newJournal.title.trim() || !newJournal.content.trim()) return;
-    try {
-      const response = await axios.post("/journal", newJournal); // Send title and content
-      setJournals([...journals, response.data]); // Add the new journal to the state
-      setNewJournal({ title: "", content: "" }); // Clear the input fields
-    } catch (error) {
-      console.error("Error creating journal entry:", error);
+    const token = localStorage.getItem("jwt"); // Retrieve token from localStorage
+if (!token) {
+  console.error("JWT token is missing.");
+  return;
+}
+try {
+  const response = await axios.post(
+    "http://localhost:8081/journal",
+    newJournal,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`, // Include JWT in Authorization header
+        "Content-Type": "application/json",
+      },
     }
-  };
+  );
+  setJournals([...journals, response.data]); // Add the new journal to the state
+  setNewJournal({ title: "", content: "" }); // Clear the input fields
+} catch (error) {
+  console.error("Error creating journal entry:", error.response?.data || error.message);
+}
+  }
+
 
   // Handle deleting a journal entry
-  const handleDeleteJournal = async (_id) => {
+  const handleDeleteJournal = async (id) => {
+    console.log("_id to delete:", id);  // Log the _id value being passed
+    const token = localStorage.getItem("jwt");
+    if (!token) {
+      console.error("JWT token is missing.");
+      return;
+    }
+    const idString=String(id);
     try {
-      await axios.delete(`/journal/id/${_id}`);
-      setJournals(journals.filter((journal) => journal._id !== _id));
+      await axios.delete(`http://localhost:8081/journal/id/${idString}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+
+        },
+      });
+      console.log("delete success");
+      setJournals(journals.filter((journal) => journal.id !== id));
     } catch (error) {
-      console.error("Error deleting journal entry:", error);
+      console.error("Error deleting journal entry:", error.response?.data || error.message);
     }
   };
+  
+
 
   // Handle updating a journal entry
   const handleUpdateJournal = async () => {
     if (!updatedContent.title.trim() || !updatedContent.content.trim() || !editJournal) return;
     try {
-      const response = await axios.put(`/journal/id/${editJournal._id}`, updatedContent);
+      const response = await axios.put(`/journal/_id/${editJournal._id}`, updatedContent);
       setJournals(
         journals.map((journal) =>
           journal._id === editJournal._id ? response.data : journal
@@ -89,7 +122,7 @@ const JournalPage = () => {
           <div
             key={journal._id}
             style={{
-              border: "1px solid #ccc",
+              border: "1px sol_id #ccc",
               borderRadius: "5px",
               padding: "10px",
               marginBottom: "10px",
@@ -115,12 +148,13 @@ const JournalPage = () => {
               </div>
             ) : (
               <div>
+               {/* <h4>{journal.id}</h4> */}
                 <h3>{journal.title}</h3>
                 <p>{journal.content}</p>
                 <small>Date: {new Date(journal.date).toLocaleString()}</small>
                 <div>
                   <button onClick={() => setEditJournal(journal)}>Edit</button>
-                  <button onClick={() => handleDeleteJournal(journal._id)}>Delete</button>
+                  <button onClick={() => handleDeleteJournal(journal.id)}>Delete</button>
                 </div>
               </div>
             )}
