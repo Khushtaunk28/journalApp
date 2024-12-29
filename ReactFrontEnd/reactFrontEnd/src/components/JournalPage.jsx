@@ -11,28 +11,32 @@ const JournalPage = () => {
   useEffect(() => {
     // Function to fetch journal entries
     const fetchJournals = async () => {
-      try {
-        const token = localStorage.getItem("jwt"); // Retrieve JWT token from localStorage
+      const token = localStorage.getItem("jwt");
+      console.log(token);
+      if (!token) {
+        setError("No JWT token found.");
+        return;
+      }
 
-        // Check if token exists
-        if (!token) {
-          console.log("No JWT token found. Please log in.");
-          return;
-        }
-        // Make the API request with the token in the Authorization header
-        const response = await axios.get("http://localhost:8081/journal", {
+      try {
+        const response = await fetch("http://localhost:8081/journal", {
+          method: "GET",
           headers: {
-            "Authorization": `Bearer ${token}`, // Attach the token to the header
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json",
           },
         });
-
-        // Set the fetched journals data
-        setJournals(response.data);
-      } catch (err) {
-        console.log("Error fetching journal entries: " + err.message);
+    
+        if (!response.ok) {
+          throw new Error("Failed to fetch journals");
+        }
+        const data = await response.json();
+        setJournals(data); // Set the response data
+      } catch (error) {
+        console.error("Error fetching journals:", error.message);
       }
     };
-
+  
     fetchJournals();
   }, []);
 
