@@ -68,7 +68,6 @@ try {
 }
   }
 
-
   // Handle deleting a journal entry
   const handleDeleteJournal = async (id) => {
     console.log("_id to delete:", id);  // Log the _id value being passed
@@ -93,24 +92,42 @@ try {
     }
   };
   
-
-
   // Handle updating a journal entry
   const handleUpdateJournal = async () => {
     if (!updatedContent.title.trim() || !updatedContent.content.trim() || !editJournal) return;
+  
+    const token = localStorage.getItem("jwt");
+    if (!token) {
+      console.error("JWT token is missing.");
+      return;
+    }
+    console.log(editJournal.id);
     try {
-      const response = await axios.put(`/journal/_id/${editJournal._id}`, updatedContent);
+      const response = await axios.put(
+        `http://localhost:8081/journal/id/${String(editJournal.id)}`, // URL
+        updatedContent, // Data (body)
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        } // Config (headers)
+      );
+  
       setJournals(
         journals.map((journal) =>
-          journal._id === editJournal._id ? response.data : journal
+          journal.id === editJournal.id ? response.data : journal
         )
       );
-      setEditJournal(null);
-      setUpdatedContent({ title: "", content: "" });
+  
+      setEditJournal(null); // Reset the editJournal state
+      setUpdatedContent({ title: "", content: "" }); // Reset updated content
     } catch (error) {
       console.error("Error updating journal entry:", error);
     }
   };
+  
+
 
   return (
     <div style={{ padding: "20px" }}>
@@ -128,19 +145,19 @@ try {
               marginBottom: "10px",
             }}
           >
-            {editJournal && editJournal._id === journal._id ? (
+            {editJournal && editJournal.id === journal.id ? (
               <div>
                 <input
                   type="text"
                   value={updatedContent.title}
                   onChange={(e) => setUpdatedContent({ ...updatedContent, title: e.target.value })}
-                  placeholder="Edit title"
+                  placeholder={journal.title}
                   style={{ width: "100%", marginBottom: "10px" }}
                 />
                 <textarea
                   value={updatedContent.content}
                   onChange={(e) => setUpdatedContent({ ...updatedContent, content: e.target.value })}
-                  rows="3"
+                  rows="3" placeholder={journal.content}
                   style={{ width: "100%" }}
                 ></textarea>
                 <button onClick={handleUpdateJournal}>Save</button>
