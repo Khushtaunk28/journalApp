@@ -6,7 +6,7 @@ const JournalPage = () => {
   const [newJournal, setNewJournal] = useState({ title: "", content: "" }); // State for new journal input
   const [editJournal, setEditJournal] = useState(null); // State to store the journal being edited
   const [updatedContent, setUpdatedContent] = useState({ title: "", content: "" }); // State for updated journal content
-
+  const [weather,setweather]=useState(null);
   // Fetch all journal entries for the logged-in user on component mount
   useEffect(() => {
     // Function to fetch journal entries
@@ -128,14 +128,34 @@ try {
   };
 
   //fetch weather of the city
-  // const getWeather
+  useEffect(() => {
+    const fetchWeather = async () => {
+      console.log("Fetching weather..."); // Debug log
+      const token = localStorage.getItem("jwt");
+      try {
+        const response = await axios.get("http://localhost:8081/user",{
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        console.log("Weather API response:", response.data); // Debug log
+        setweather(response.data); // Store weather data in state
+      } catch (error) {
+        console.error("Error fetching weather:", error); // Debug log
+      }
+    };
+  
+    fetchWeather();
+  }, []);
+  
+  
   
 
 
   return (
     <div style={{ padding: "20px" }}>
        <div style={{padding:"20px"}}>
-        <h1>The current weather is: 10
+        <h1 >Hello Mr. {weather}
         </h1>
       </div>
       <h1>My Journal Entries</h1>

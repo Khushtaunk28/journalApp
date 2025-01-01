@@ -17,6 +17,8 @@ const LogIn = () => {
       const response = await logIn(credentials);
       console.log('Login successful:', response);
       localStorage.setItem('jwt', response); // Save JWT token
+      localStorage.setItem("username",username);
+      localStorage.setItem("password", password);
       toast.success('Login successful!');
       navigate('/journal')
     } catch (error) {
