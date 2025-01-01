@@ -126,11 +126,18 @@ try {
       console.error("Error updating journal entry:", error);
     }
   };
+
+  //fetch weather of the city
+  // const getWeather
   
 
 
   return (
     <div style={{ padding: "20px" }}>
+       <div style={{padding:"20px"}}>
+        <h1>The current weather is: 10
+        </h1>
+      </div>
       <h1>My Journal Entries</h1>
 
       {/* Display journal entries */}
@@ -139,7 +146,7 @@ try {
           <div
             key={journal._id}
             style={{
-              border: "1px sol_id #ccc",
+              border: "px sol_id #ccc",
               borderRadius: "5px",
               padding: "10px",
               marginBottom: "10px",
@@ -199,6 +206,7 @@ try {
           Add Journal Entry
         </button>
       </div>
+     
     </div>
   );
 };
