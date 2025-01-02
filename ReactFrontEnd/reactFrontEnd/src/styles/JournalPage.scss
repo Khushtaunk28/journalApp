@@ -1,0 +1,55 @@
+*{
+
+}
+.maindiv{
+    background-color:rgba(216, 184, 147, 0.613);
+    .head{
+        text-transform: uppercase;
+        padding: 0.5rem;
+    }
+    .weather{
+        width: 100%;
+        height: 10vh;
+        padding: 0.5rem;
+
+    }
+    .displayjournal{
+        display: flex;
+        background-color :rgb(110, 172, 227);
+        margin: 2rem;
+        border: "px sol_id #ccc";
+        padding: 10px;
+        border-radius: 10px 0 10px 0;
+
+        
+    }
+
+}
+
+button{
+    margin:3px;
+    padding: 0.8rem;
+    border: none;
+    border-radius: 5px;
+    background-color: green;
+    color: aqua;
+    width: 100px;
+    font: 400 1rem;
+    &:hover{
+        opacity: 0.8;   
+    }
+}
+input{
+        border:solid black;
+        width: "40%";
+        height: 10vh;
+        margin: "10px" ;
+    }
+textarea{
+    border:solid black;
+        width: "100%";
+        height: 10vh;
+        margin: "10px" ;
+
+}    
+

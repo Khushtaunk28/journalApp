@@ -16,6 +16,7 @@ import "./styles/Footer.scss"
 import "./styles/Contact.scss"
 import "./styles/Login.scss"
 import "./styles/JournalEntry.scss"
+import "./styles/JournalPage.scss"
 import JournalPage from "./components/JournalPage";
 
 const App = () => {

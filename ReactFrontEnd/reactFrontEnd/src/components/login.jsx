@@ -20,7 +20,7 @@ const LogIn = () => {
       localStorage.setItem("username",username);
       localStorage.setItem("password", password);
       toast.success('Login successful!');
-      navigate('/journal')
+      navigate('/journal-page')
     } catch (error) {
       if (error.response) {
         // Backend returned an error response

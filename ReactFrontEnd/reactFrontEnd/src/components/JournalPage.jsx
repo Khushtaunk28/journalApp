@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import SignOut from "./JournalEntry";
 
 const JournalPage = () => {
   const [journals, setJournals] = useState([]); // State to store journal entries
@@ -153,39 +154,32 @@ try {
 
 
   return (
-    <div style={{ padding: "20px" }}>
-       <div style={{padding:"20px"}}>
-        <h1 >Hello Mr. {weather}
+    <div className="maindiv">
+      <SignOut/>
+       <div className="weather">
+        <h1 >Hello Mr. s{weather}
         </h1>
       </div>
-      <h1>My Journal Entries</h1>
+      <h1 className="head">My Journal Entries</h1>
 
       {/* Display journal entries */}
-      <div>
+      <div >
         {journals.map((journal) => (
-          <div
+          <div className="displayjournal"
             key={journal._id}
-            style={{
-              border: "px sol_id #ccc",
-              borderRadius: "5px",
-              padding: "10px",
-              marginBottom: "10px",
-            }}
           >
             {editJournal && editJournal.id === journal.id ? (
-              <div>
+              <div >
                 <input
                   type="text"
                   value={updatedContent.title}
                   onChange={(e) => setUpdatedContent({ ...updatedContent, title: e.target.value })}
                   placeholder={journal.title}
-                  style={{ width: "100%", marginBottom: "10px" }}
                 />
                 <textarea
                   value={updatedContent.content}
                   onChange={(e) => setUpdatedContent({ ...updatedContent, content: e.target.value })}
-                  rows="3" placeholder={journal.content}
-                  style={{ width: "100%" }}
+                  rows="10s" placeholder={journal.content}
                 ></textarea>
                 <button onClick={handleUpdateJournal}>Save</button>
                 <button onClick={() => setEditJournal(null)}>Cancel</button>
@@ -225,6 +219,8 @@ try {
         <button onClick={handleCreateJournal} style={{ marginTop: "10px" }}>
           Add Journal Entry
         </button>
+        
+
       </div>
      
     </div>
