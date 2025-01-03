@@ -63,3 +63,34 @@
         }
     }
 }
+@media (max-width: 768px) {
+    .login-form {
+        display: flex;
+        justify-content:flex-start;
+        width: 100%; /* Adjust width for smaller devices */
+        padding: 10px;
+    }
+    main{
+        
+    }
+    form{
+        display: flex;
+        text-align: start;
+    }
+    label{
+        
+        width: 10%;
+        font-size: 0.2rem;
+    }
+
+    input{
+        width: 30%; /* Make input fields responsive */
+        font-size: 1rem;
+    }
+
+    .login-button {
+        width: 100%;
+        font-size: 1rem;
+    }
+}
+

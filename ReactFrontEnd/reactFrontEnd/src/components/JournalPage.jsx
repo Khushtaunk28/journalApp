@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import SignOut from "./JournalEntry";
+import GetSentiment from "./Sentiment.jsx";
+import { Link } from "react-router-dom";
 
 const JournalPage = () => {
   const [journals, setJournals] = useState([]); // State to store journal entries
@@ -156,6 +158,10 @@ try {
   return (
     <div className="maindiv">
       <SignOut/>
+      <div className="analyzeSentiment">
+    <Link to={"/analyze-sentiment"}><button >Analyze Sentiment</button></Link>
+    </div>
+      
        <div className="weather">
         <h1 >Hello Mr. s{weather}
         </h1>

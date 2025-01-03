@@ -17,7 +17,9 @@ import "./styles/Contact.scss"
 import "./styles/Login.scss"
 import "./styles/JournalEntry.scss"
 import "./styles/JournalPage.scss"
+import "./styles/Sentiment.scss"
 import JournalPage from "./components/JournalPage";
+import GetSentiment from "./components/Sentiment";
 
 const App = () => {
   return (
@@ -31,6 +33,7 @@ const App = () => {
         <Route path="/sign-up" element={<Signup/>}/>
         <Route path="/log-in" element={<LogIn/>}/>
         <Route path="/contact-us" element={<Contact/>}/>
+        <Route path="/analyze-sentiment" element={<GetSentiment/>}/>
         <Route path="/journal" element={<ProtectedRoute><SignOut /></ProtectedRoute>}/>
         <Route path="/journal-page" element={<ProtectedRoute><JournalPage/></ProtectedRoute>}/>
       </Routes>
