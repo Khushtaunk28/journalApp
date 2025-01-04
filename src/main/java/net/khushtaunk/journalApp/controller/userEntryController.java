@@ -65,9 +65,9 @@ public class userEntryController {
         WeatherApiResponse response=weatherService.getWeather("Mysore");
         String greetings=" ";
         if(response!=null){
-            greetings=",Weather feels like"+response.getCurrent().getFeelslike();
+            greetings=",Weather feels like "+response.getCurrent().getFeelslike()+"in Mysore ";
         }
-        return new ResponseEntity<>("Hi  "+ "Mr/Mrs."+authentication.getName()+greetings,HttpStatus.OK);
+        return new ResponseEntity<>(authentication.getName()+greetings,HttpStatus.OK);
     }
 
 

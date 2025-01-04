@@ -3,9 +3,11 @@ package net.khushtaunk.journalApp.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
+import net.khushtaunk.journalApp.Entity.ContactUs;
 import net.khushtaunk.journalApp.Entity.User;
 import net.khushtaunk.journalApp.Utils.JwtUtil;
 import net.khushtaunk.journalApp.dto.UserDTO;
+import net.khushtaunk.journalApp.service.ContactusService;
 import net.khushtaunk.journalApp.service.userEntryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,6 +28,9 @@ public class PublicController {
     private AuthenticationManager authentication;
 
     @Autowired
+    private ContactusService contactusService;
+
+    @Autowired
     private UserDetailsService userDetailsService;
 
     @Autowired
@@ -33,7 +38,7 @@ public class PublicController {
 
     @Autowired
     private userEntryService UserService;
-    @CrossOrigin(origins = "http://localhost:8082")
+    @CrossOrigin(origins = "*")
     @Operation(summary = "check if the App is working without any auth")
     @GetMapping("/health-check")
     public String healthCheck() {
@@ -61,14 +66,16 @@ public class PublicController {
             String jwt=jwtUtil.generateToken(userDetails.getUsername());
             return new ResponseEntity<>(jwt, HttpStatus.OK);
 
-        }catch (Exception e){
-            log.error("Exception while login",e);
+        }catch (Exception e) {
+            log.error("Exception while login", e);
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
 
-
         }
-
-
+    }
+    //save the contact-us query
+    @PostMapping("/contact-us")
+    public void contactUs(@RequestBody ContactUs info){
+        contactusService.saveEntry(info);
     }
 
 }

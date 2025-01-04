@@ -24,7 +24,6 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/journal")
 @Tag(name="Journal Api's",description = "Read ,Post ,update or delete Journals")
-
 public class JournalEntryController_v2 {
     @Autowired
     private JournalEntryService journalEntryService;
@@ -40,6 +39,7 @@ public class JournalEntryController_v2 {
         User user = userService.findByUsername(username);
 //        return journalEntryService.getALl();
         List<journalEntry> all = user.getJournalEntries();
+        //System.out.println(all);
         if (all != null && !all.isEmpty())
             return new ResponseEntity<>(all, HttpStatus.OK);
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -81,8 +81,8 @@ public class JournalEntryController_v2 {
         if(!collect.isEmpty()){
             Optional<journalEntry> journalEntry=journalEntryService.getEntryById(objectId);
             if(journalEntry.isPresent()) {
+                System.out.println("Journal Entry ID: " + journalEntry.get().getId());
                 return new ResponseEntity<>(journalEntry.get(), HttpStatus.OK);
-
         }
 
 
@@ -92,6 +92,7 @@ public class JournalEntryController_v2 {
     @Operation(summary = "Delete User by user id")
     @DeleteMapping("id/{myId}")
     public ResponseEntity<?> deleteEntryById(@PathVariable String myId) {
+        System.out.println("Received ID: " + myId);
         ObjectId objectId=new ObjectId(myId);
         Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
         String username=authentication.getName();
@@ -114,7 +115,7 @@ public class JournalEntryController_v2 {
         String username=authentication.getName();
         User user = userService.findByUsername(username);
         List<journalEntry> collect = user.getJournalEntries().stream()
-                .filter(x -> x.getId().equals(objectId))
+                .filter(x -> x.getId().equals(objectId.toString()))
                 .collect(Collectors.toList());
         if(!collect.isEmpty()) {
             Optional<journalEntry> oldjournalEntry = journalEntryService.getEntryById(objectId);

@@ -19,7 +19,9 @@ public class journalEntry {
     private LocalDateTime date;
     private String content;
     private String sentiment;
-
+    public  String getId(){
+        return id.toHexString();
+    }
 
 
 //    public String getTitle() {

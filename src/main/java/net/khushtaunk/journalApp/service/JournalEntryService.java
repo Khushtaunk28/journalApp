@@ -56,7 +56,7 @@ public class JournalEntryService {
        boolean removed=false;
        try {
            User user = userEntryService.findByUsername(username);
-           removed = user.getJournalEntries().removeIf(x -> x.getId().equals(id));
+           removed = user.getJournalEntries().removeIf(x -> x.getId().equals(id.toString()));
            if (removed) {
                userEntryService.saveNewUser(user);
                journalEntryRepo.deleteById(id);
