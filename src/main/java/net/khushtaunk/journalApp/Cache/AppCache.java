@@ -19,11 +19,6 @@ public class AppCache {
 //    }
 
 
-
-
-
-
-
     @Autowired
     private ConfigJournalAppRepo configJournalAppRepo;
     public  Map<String,String> APP_CACHE;

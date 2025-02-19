@@ -20,10 +20,12 @@ public class JwtUtil {
     private SecretKey getSigningKey() {
         return Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
     }
+
     public String generateToken(String username){
         Map<String, Object> claims = new HashMap<String, Object>();
         return createToken(claims,username);
     }
+
     public String createToken(Map<String, Object> claims, String subject){
         return Jwts.builder()
                 .claims(claims)
@@ -35,7 +37,6 @@ public class JwtUtil {
                 .signWith(getSigningKey())
                 .compact();
     }
-
 
     public String extractUsername(String jwtToken) {
         Claims claims=extractAllClaims(jwtToken);
@@ -56,6 +57,7 @@ public class JwtUtil {
     public boolean isTokenExpired(String jwtToken) {
         return extractExpiration(jwtToken).before(new Date());
     }
+
     public Date extractExpiration(String jwtToken) {
         return extractAllClaims(jwtToken).getExpiration();
     }

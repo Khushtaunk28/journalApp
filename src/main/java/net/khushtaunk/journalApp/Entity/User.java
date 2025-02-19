@@ -27,3 +27,4 @@ public class User {
     @DBRef//to create relation to jornal ENtry database
     private List<journalEntry> journalEntries=new ArrayList<>();
 }
+

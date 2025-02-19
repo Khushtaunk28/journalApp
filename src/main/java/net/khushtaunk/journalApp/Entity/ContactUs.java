@@ -15,7 +15,6 @@ public class ContactUs {
     @Id
     private ObjectId id;
 
-
     @NonNull
     private String name;
     @NonNull

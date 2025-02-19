@@ -21,6 +21,8 @@ public class userEntryService {
     public  userEntryRepo userEntryRepo ;
     private  final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     //postmap
+
+
     public  void saveEntry(User user) {
         try {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -57,6 +59,7 @@ public class userEntryService {
     public User findByUsername(String username) {
         return userEntryRepo.findByusername(username);
     }
+
     public  void  deleteByUserName(String username) {
         userEntryRepo.deleteByusername(username);
     }
@@ -65,5 +68,6 @@ public class userEntryService {
             user.setRoles(Arrays.asList("USER", "ADMIN"));
             userEntryRepo.save(user);
     }
+
     //controller-->service-->repository
 }
