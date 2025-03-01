@@ -46,12 +46,11 @@ public class GoogleAuthController {
     @Autowired
     private userEntryRepo  userEntryRepo;
 
-    @Value("$(spring.security.oauth2.client.registration.google.client-id")
+    @Value("${spring.security.oauth2.client.registration.google.client-id}")
     private String clientId;
 
-    @Value("$(spring.security.oauth2.client.registration.google.client-secret")
+    @Value("${spring.security.oauth2.client.registration.google.client-secret}")
     private String clientsecret;
-
 
     @GetMapping("/callback")
     public ResponseEntity<?> handleGoogleCallback(@RequestParam String code) {
@@ -61,13 +60,14 @@ public class GoogleAuthController {
             params.add("code", code);
             params.add("client_id", clientId);
             params.add("client_secret", clientsecret);
-            params.add("redirect_url", "https://developers.google.com/oauthplayground");
+            params.add("redirect_uri", "https://developers.google.com/oauthplayground");
             params.add("grant_type", "authorization_code");
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
             HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(params, headers);
             ResponseEntity<Map> tokenresponse = restTemplate.postForEntity(tokenendpoint, request, Map.class);
             String idToken = (String) tokenresponse.getBody().get("id_token");
+            System.out.println("exception before this");
             String userInfoUrl = "https://oauth2.googleapis.com/tokeninfo?id_token=" + idToken;
             ResponseEntity<Map> userinforesponse = restTemplate.getForEntity(userInfoUrl, Map.class);
             if (userinforesponse.getStatusCode() == HttpStatus.OK) {
@@ -77,7 +77,7 @@ public class GoogleAuthController {
                 try {
                     userDetails=  userDetailsService.loadUserByUsername(email);
                 } catch (Exception e) {
-                    if (userDetails != null) {
+                    if (userDetails == null) {
                         User user = new User();
                         user.setEmail(email);
                         user.setUsername(email);
