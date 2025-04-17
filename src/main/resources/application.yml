@@ -65,4 +65,5 @@ weather:
 springdoc:
   swagger-ui:
     path: /docs
-
+jwt:
+  secret-key: ${SECRET_KEY}

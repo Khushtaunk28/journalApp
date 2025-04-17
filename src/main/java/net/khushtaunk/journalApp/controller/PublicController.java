@@ -44,6 +44,8 @@ public class PublicController {
     public String healthCheck() {
         return "OK";
     }
+
+
     @PostMapping("/sign-up")
     @Operation(summary = "Sign-up for first-time user")
     public  void signup(@RequestBody UserDTO user) {
@@ -65,13 +67,13 @@ public class PublicController {
             UserDetails userDetails=userDetailsService.loadUserByUsername(user.getUsername());
             String jwt=jwtUtil.generateToken(userDetails.getUsername());
             return new ResponseEntity<>(jwt, HttpStatus.OK);
-
-        }catch (Exception e) {
+        }
+        catch (Exception e) {
             log.error("Exception while login", e);
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-
         }
     }
+
     //save the contact-us query
     @PostMapping("/contact-us")
     public void contactUs(@RequestBody ContactUs info){

@@ -13,7 +13,6 @@ public class userDetailServiceImp implements UserDetailsService {
     @Autowired
     private userEntryRepo userRepo;
 
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user=userRepo.findByusername(username);

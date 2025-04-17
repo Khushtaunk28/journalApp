@@ -22,7 +22,6 @@ public class userEntryService {
     private  final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     //postmap
 
-
     public  void saveEntry(User user) {
         try {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
